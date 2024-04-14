@@ -15,6 +15,8 @@ public partial class User
 
     public byte[] Picture { get; set; } = null!;
 
+    public string Username { get; set; } = null!;
+
     public virtual ICollection<Certification> Certifications { get; set; } = new List<Certification>();
 
     public virtual ICollection<Exchange> ExchangeRecivers { get; set; } = new List<Exchange>();

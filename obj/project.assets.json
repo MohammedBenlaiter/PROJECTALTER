@@ -2301,11 +2301,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/ash/Desktop/PROJECT ALTER/PROJECTALTERAPI/PROJECTALTERAPI.csproj",
+      "projectUniqueName": "/home/ash/Desktop/FromGitHub/PROJECTALTER/PROJECTALTERAPI.csproj",
       "projectName": "PROJECTALTERAPI",
-      "projectPath": "/home/ash/Desktop/PROJECT ALTER/PROJECTALTERAPI/PROJECTALTERAPI.csproj",
+      "projectPath": "/home/ash/Desktop/FromGitHub/PROJECTALTER/PROJECTALTERAPI.csproj",
       "packagesPath": "/home/ash/.nuget/packages/",
-      "outputPath": "/home/ash/Desktop/PROJECT ALTER/PROJECTALTERAPI/obj/",
+      "outputPath": "/home/ash/Desktop/FromGitHub/PROJECTALTER/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/ash/.nuget/NuGet/NuGet.Config"
