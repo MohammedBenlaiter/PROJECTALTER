@@ -19,6 +19,8 @@ public partial class AlterDbContext : DbContext
 
     public virtual DbSet<Date> Dates { get; set; }
 
+    public virtual DbSet<Email> Emails { get; set; }
+
     public virtual DbSet<Exchange> Exchanges { get; set; }
 
     public virtual DbSet<Feedback> Feedbacks { get; set; }
@@ -83,6 +85,26 @@ public partial class AlterDbContext : DbContext
                 .HasForeignKey(d => d.ExchangeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("exchange_id");
+        });
+
+        modelBuilder.Entity<Email>(entity =>
+        {
+            entity.HasKey(e => e.EmailId).HasName("email_pkey");
+
+            entity.ToTable("email");
+
+            entity.Property(e => e.EmailId)
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("email_id");
+            entity.Property(e => e.EmailAdresse)
+                .HasColumnType("character varying")
+                .HasColumnName("email_adresse");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Emails)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("user_id");
         });
 
         modelBuilder.Entity<Exchange>(entity =>
