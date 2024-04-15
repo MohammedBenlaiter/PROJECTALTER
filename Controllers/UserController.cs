@@ -20,7 +20,7 @@ namespace PROJECTALTERAPI.Controllers
         {
             var users = await _db.Users.ToListAsync(); // Asynchronous retrieval
 
-            return Ok(users); // Return successful response with users
+            return Ok(users); // Return successful response with users d 
         }
     }
 }
