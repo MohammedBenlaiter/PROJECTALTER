@@ -18,7 +18,7 @@ namespace PROJECTALTERAPI.Controllers
         [HttpGet("getAllUser")] // Route at method level
         public async Task<IActionResult> Get()
         {
-            var users = await _db.Users.ToListAsync(); // Asynchronous retrieval
+            var users = await _db.Users.ToListAsync(); //  retrieval
 
             return Ok(users); // Return successful response with users d 
         }
