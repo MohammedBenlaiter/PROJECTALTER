@@ -25,7 +25,7 @@ namespace PROJECTALTERAPI.Controllers
             return Ok(users); // Return successful response with users d 
         }
         [HttpPost("createUser")]
-        public IActionResult Create(CreateUserDto dto)
+        public IActionResult Create(UserDto dto)
         {
             var user = new User
             {
@@ -38,6 +38,32 @@ namespace PROJECTALTERAPI.Controllers
             _db.SaveChanges();
             return Ok(dto);
         }
+        [HttpPut("updateUser/{id}")]
+        public IActionResult Update(int id, UserDto dto)
+        {
+            var user = _db.Users.SingleOrDefault(g => g.UserId == id);
+            if (user == null)
+            {
+                return NotFound($"User {id} does not exist");
+            }
+            user.FirstName = dto.FirstName;
+            user.LastName = dto.LastName;
+            user.Username = dto.Username;
+            user.Password = dto.Password;
+            _db.SaveChanges();
+            return Ok(user);
+        }
+        [HttpDelete("deleteUser/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var user = _db.Users.SingleOrDefault(g => g.UserId == id);
+            if (user == null)
+            {
+                return NotFound($"User {id} does not exist");
+            }
+            _db.Remove(user);
+            _db.SaveChanges();
+            return Ok("the user " + id + " is deleted");
+        }
     }
 }
-

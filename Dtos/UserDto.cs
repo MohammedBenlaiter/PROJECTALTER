@@ -1,6 +1,6 @@
 ﻿namespace PROJECTALTERAPI.Dtos;
 
-public record class CreateUserDto
+public record class UserDto
 {
     public string FirstName { get; set; } = null!;
 
