@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PROJECTALTERAPI.Dtos;
 using PROJECTALTERAPI.Models;
 
 namespace PROJECTALTERAPI.Controllers
@@ -16,11 +17,18 @@ namespace PROJECTALTERAPI.Controllers
         }
 
         [HttpGet("getAllUser")] // Route at method level
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
-            var users = await _db.Users.ToListAsync(); //  final
+            var users = _db.Users.ToList(); //  final
 
             return Ok(users); // Return successful response with users d 
+        }
+        [HttpPost("createUser")]
+        public IActionResult Create(CreateUserDto dto)
+        {
+            var user = new User { FirstName = dto.FirstName };
+            _db.SaveChanges();
+            return Ok(dto);
         }
     }
 }

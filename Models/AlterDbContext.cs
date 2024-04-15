@@ -19,6 +19,8 @@ public partial class AlterDbContext : DbContext
 
     public virtual DbSet<Date> Dates { get; set; }
 
+    public virtual DbSet<Email> Emails { get; set; }
+
     public virtual DbSet<Exchange> Exchanges { get; set; }
 
     public virtual DbSet<Feedback> Feedbacks { get; set; }
@@ -42,7 +44,7 @@ public partial class AlterDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseNpgsql("Host=localhost; Database=alter_db; Username=postgres; Password=2023");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -83,6 +85,24 @@ public partial class AlterDbContext : DbContext
                 .HasForeignKey(d => d.ExchangeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("exchange_id");
+        });
+
+        modelBuilder.Entity<Email>(entity =>
+        {
+            entity.HasKey(e => e.EmailId).HasName("email_pkey");
+
+            entity.ToTable("email");
+
+            entity.Property(e => e.EmailId)
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("email_id");
+            entity.Property(e => e.EmailAdresse).HasColumnName("email_adresse");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Emails)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("user_id");
         });
 
         modelBuilder.Entity<Exchange>(entity =>
