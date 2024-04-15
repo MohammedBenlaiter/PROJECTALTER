@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PROJECTALTERAPI.Dtos;
 using PROJECTALTERAPI.Models;
@@ -26,7 +27,14 @@ namespace PROJECTALTERAPI.Controllers
         [HttpPost("createUser")]
         public IActionResult Create(CreateUserDto dto)
         {
-            var user = new User { FirstName = dto.FirstName };
+            var user = new User
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Username = dto.Username,
+                Password = dto.Password,
+            };
+            _db.Add(user);
             _db.SaveChanges();
             return Ok(dto);
         }
