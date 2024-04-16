@@ -18,7 +18,7 @@ internal class Program
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
-        // 16 april
+        // 16 april test 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
