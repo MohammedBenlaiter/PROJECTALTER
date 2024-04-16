@@ -65,5 +65,11 @@ namespace PROJECTALTERAPI.Controllers
             _db.SaveChanges();
             return Ok("the user " + id + " is deleted");
         }
+        [HttpGet("getUserWithEmail")]
+        public IActionResult GetEmail(Email email, UserDto dto)
+        {
+            var user = _db.Users.ToList();
+            return Ok(user);
+        }
     }
 }
