@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PROJECTALTERAPI.Dtos;
 using PROJECTALTERAPI.Models;
+using PROJECTALTERAPI.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace PROJECTALTERAPI.Controllers
 {
@@ -65,11 +67,51 @@ namespace PROJECTALTERAPI.Controllers
             _db.SaveChanges();
             return Ok("the user " + id + " is deleted");
         }
-        [HttpGet("getUserWithEmail")]
-        public IActionResult GetEmail(Email email, UserDto dto)
+        [HttpPost("login")]
+        public IActionResult Login(LoginDto login)
         {
-            var user = _db.Users.ToList();
-            return Ok(user);
+            var user = _db.Users.FirstOrDefault(u => u.Username == login.Username && u.Password == login.Password);
+            //var user = _db.Users.Where(u => u.Username == login.Username && u.Password == login.Password).FirstOrDefault();
+            if (user == null)
+            {
+                return Unauthorized("amchi trawe7");
+            }
+            else
+            {
+                return Ok("you are th real user");
+            }
+        }
+        [HttpPost("register")]
+        public IActionResult Register(UserRegisterDto dto)
+        {
+            var UsernameCheck = _db.Users.FirstOrDefault(u => u.Username == dto.Username);
+            if (UsernameCheck != null)
+            {
+                return BadRequest("Username is taken");
+            }
+            var EmailCheck = _db.Emails.FirstOrDefault(e => e.EmailAdresse == dto.Email);
+            if (EmailCheck != null)
+            {
+                return BadRequest("Email is taken");
+            }
+            var passwordHasher = new PasswordHasher<User>();
+            var user = new User
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Username = dto.Username,
+                Password = passwordHasher.HashPassword(null!, dto.Password),
+            };
+            _db.Add(user);
+            _db.SaveChanges();
+            var email = new Email
+            {
+                UserId = user.UserId,
+                EmailAdresse = dto.Email
+            };
+            _db.Emails.Add(email);
+            _db.SaveChanges();
+            return Ok(dto);
         }
     }
 }
