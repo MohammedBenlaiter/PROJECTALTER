@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EzpWIyU1uq/vBpJI7dCiIBFCZ7ibb4fymlQsCyXQiW1tOzzOOpZzHyYDmzMNFBhTAdmTcGI1ZiTvAmUqCnxtcQ==",
+  "dgSpecHash": "CpvKanb0qmGxN44Kq5tBLryTtg1KIFQ3izrRCFDMdiFkmf4kKrJM+kO29fkkYRAryy3+ju9LUrs7XukZTB4DaA==",
   "success": true,
-  "projectFilePath": "/home/ash/Desktop/FromGitHub/PROJECTALTER/PROJECTALTERAPI.csproj",
+  "projectFilePath": "/home/ash/Desktop/PROJECTALTER/PROJECTALTER/PROJECTALTERAPI.csproj",
   "expectedPackageFiles": [
     "/home/ash/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/ash/.nuget/packages/microsoft.bcl.asyncinterfaces/6.0.0/microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
