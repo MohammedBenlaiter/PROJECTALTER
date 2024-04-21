@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PROJECTALTERAPI.Dtos;
 using PROJECTALTERAPI.Models;
-using PROJECTALTERAPI.Services;
 using Microsoft.AspNetCore.Identity;
 
 namespace PROJECTALTERAPI.Controllers

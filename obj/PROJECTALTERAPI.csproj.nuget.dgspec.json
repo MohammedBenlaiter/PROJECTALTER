@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/ash/Desktop/FromGitHub/PROJECTALTER/PROJECTALTERAPI.csproj": {}
+    "/home/ash/Desktop/PROJECTALTER/PROJECTALTER/PROJECTALTERAPI.csproj": {}
   },
   "projects": {
-    "/home/ash/Desktop/FromGitHub/PROJECTALTER/PROJECTALTERAPI.csproj": {
+    "/home/ash/Desktop/PROJECTALTER/PROJECTALTER/PROJECTALTERAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ash/Desktop/FromGitHub/PROJECTALTER/PROJECTALTERAPI.csproj",
+        "projectUniqueName": "/home/ash/Desktop/PROJECTALTER/PROJECTALTER/PROJECTALTERAPI.csproj",
         "projectName": "PROJECTALTERAPI",
-        "projectPath": "/home/ash/Desktop/FromGitHub/PROJECTALTER/PROJECTALTERAPI.csproj",
+        "projectPath": "/home/ash/Desktop/PROJECTALTER/PROJECTALTER/PROJECTALTERAPI.csproj",
         "packagesPath": "/home/ash/.nuget/packages/",
-        "outputPath": "/home/ash/Desktop/FromGitHub/PROJECTALTER/obj/",
+        "outputPath": "/home/ash/Desktop/PROJECTALTER/PROJECTALTER/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/ash/.nuget/NuGet/NuGet.Config"
