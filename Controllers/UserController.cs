@@ -9,6 +9,7 @@ namespace PROJECTALTERAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    // adem
     public class UserController : ControllerBase
     {
         private readonly AlterDbContext _db;
@@ -112,5 +113,6 @@ namespace PROJECTALTERAPI.Controllers
             _db.SaveChanges();
             return Ok(dto);
         }
+
     }
 }
