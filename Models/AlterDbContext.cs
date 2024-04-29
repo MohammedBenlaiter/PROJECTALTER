@@ -37,14 +37,12 @@ public partial class AlterDbContext : DbContext
 
     public virtual DbSet<Skill> Skills { get; set; }
 
-    public virtual DbSet<SkillType> SkillTypes { get; set; }
-
     public virtual DbSet<Topic> Topics { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseNpgsql("Host=localhost; Database=alter_db; Username=postgres; Password=2023");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -287,37 +285,22 @@ public partial class AlterDbContext : DbContext
                 .HasIdentityOptions(1L, null, 0L, null, null, null)
                 .HasColumnName("skill_id");
             entity.Property(e => e.SkillDescription).HasColumnName("skill_description");
+            entity.Property(e => e.SkillLevel)
+                .HasColumnType("character varying")
+                .HasColumnName("skill_level");
             entity.Property(e => e.SkillName)
                 .HasColumnType("character varying")
                 .HasColumnName("skill_name");
-            entity.Property(e => e.TypeId).HasColumnName("type_id");
+            entity.Property(e => e.SkillType)
+                .HasColumnType("character varying")
+                .HasColumnName("skill_type");
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.YearsOfExperience).HasColumnName("years_of_experience");
-
-            entity.HasOne(d => d.Type).WithMany(p => p.Skills)
-                .HasForeignKey(d => d.TypeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("type_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.Skills)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("user_id");
-        });
-
-        modelBuilder.Entity<SkillType>(entity =>
-        {
-            entity.HasKey(e => e.TypeId).HasName("skill_type_pkey");
-
-            entity.ToTable("skill_type");
-
-            entity.Property(e => e.TypeId)
-                .UseIdentityAlwaysColumn()
-                .HasIdentityOptions(1L, null, 0L, null, null, null)
-                .HasColumnName("type_id");
-            entity.Property(e => e.TypeName)
-                .HasColumnType("character varying")
-                .HasColumnName("type_name");
         });
 
         modelBuilder.Entity<Topic>(entity =>
@@ -364,6 +347,7 @@ public partial class AlterDbContext : DbContext
             entity.Property(e => e.Username)
                 .HasColumnType("character varying")
                 .HasColumnName("username");
+            entity.Property(e => e.VerifiedUser).HasColumnType("character varying[]");
         });
 
         OnModelCreatingPartial(modelBuilder);
