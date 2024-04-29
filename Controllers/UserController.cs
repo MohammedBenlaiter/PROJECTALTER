@@ -67,33 +67,40 @@ namespace PROJECTALTERAPI.Controllers
             _db.SaveChanges();
             return Ok("the user " + id + " is deleted");
         }
+
+
         [HttpPost("login")]
-        public IActionResult Login(LoginDto login)
+        public async Task<IActionResult> Login(LoginDto login)
         {
-            var user = _db.Users.FirstOrDefault(u => u.Username == login.Username && u.Password == login.Password);
-            //var user = _db.Users.Where(u => u.Username == login.Username && u.Password == login.Password).FirstOrDefault();
-            if (user == null)
+            try
             {
-                return Unauthorized("amchi trawe7");
+                var user = await _db.Users.FirstOrDefaultAsync(u => u.Username == login.Username);
+                if (user == null)
+                {
+                    return Unauthorized("Invalid username or password");
+                }
+                var passwordHasher = new PasswordHasher<User>();
+                var verifyResult = passwordHasher.VerifyHashedPassword(user, user.Password, login.Password);
+
+                if (verifyResult == PasswordVerificationResult.Success)
+                {
+                    return Ok("You are logged in successfully!");
+                }
+                else
+                {
+                    return Unauthorized("Invalid username or password");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return Ok("you are th real user");
+                Console.WriteLine($"Error during login: {ex.Message}");
+                return BadRequest("An error occurred during login.");
             }
         }
+
         [HttpPost("register")]
         public IActionResult Register(UserRegisterDto dto)
         {
-            var UsernameCheck = _db.Users.FirstOrDefault(u => u.Username == dto.Username);
-            if (UsernameCheck != null)
-            {
-                return BadRequest("Username is taken");
-            }
-            var EmailCheck = _db.Emails.FirstOrDefault(e => e.EmailAdresse == dto.Email);
-            if (EmailCheck != null)
-            {
-                return BadRequest("Email is taken");
-            }
             var passwordHasher = new PasswordHasher<User>();
             var user = new User
             {
@@ -114,5 +121,44 @@ namespace PROJECTALTERAPI.Controllers
             return Ok(dto);
         }
 
+        [HttpPost("checkEmail")]
+        public IActionResult CheckEmailAvailability(EmailDto dto)
+        {
+            var EmailCheck = _db.Emails.FirstOrDefault(e => e.EmailAdresse == dto.Email);
+            if (EmailCheck != null)
+            {
+                return BadRequest("Email is taken");
+            }
+            return Ok(new { isEmailAvailable = true });
+        }
+
+
+        [HttpPost("checkUsername")]
+        public IActionResult CheckUsernameAvalability(UsernameDto dto)
+        {
+            var UsernameCheck = _db.Users.FirstOrDefault(u => u.Username == dto.Username);
+            if (UsernameCheck != null)
+            {
+                return BadRequest("Username is taken");
+            }
+            return Ok(new { isUsernameAvailable = true });
+        }
+
+        /*         [HttpPost("sendEmail")]
+                public IActionResult SendEmail(string body)
+                {
+                    var email = new MimeMessage();
+                    email.From.Add(MailboxAddress.Parse("andreane.cassin@ethereal.email"));
+                    email.To.Add(MailboxAddress.Parse("andreane.cassin@ethereal.email"));
+                    email.Subject = "YOUR VERIFICATION CODE";
+                    email.Body = new TextPart(TextFormat.Html) { Text = body };
+
+                    using var smtp = new SmtpClient();
+                    smtp.Connect("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
+                    smtp.Authenticate("andreane.cassin@ethereal.email", "2xp83cH1gGWg3Y67NF");
+                    smtp.Send(email);
+                    smtp.Disconnect(true);
+                    return Ok();
+                } */
     }
 }
