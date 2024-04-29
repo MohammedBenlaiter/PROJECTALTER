@@ -17,6 +17,8 @@ public partial class User
 
     public string Username { get; set; } = null!;
 
+    public List<string>? VerifiedUser { get; set; }
+
     public virtual ICollection<Certification> Certifications { get; set; } = new List<Certification>();
 
     public virtual ICollection<Email> Emails { get; set; } = new List<Email>();

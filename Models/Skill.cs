@@ -9,13 +9,15 @@ public partial class Skill
 
     public long UserId { get; set; }
 
-    public long TypeId { get; set; }
-
     public string SkillName { get; set; } = null!;
 
     public string SkillDescription { get; set; } = null!;
 
     public int YearsOfExperience { get; set; }
+
+    public string SkillLevel { get; set; } = null!;
+
+    public string SkillType { get; set; } = null!;
 
     public virtual ICollection<Exchange> ExchangeSkillReceives { get; set; } = new List<Exchange>();
 
@@ -24,8 +26,6 @@ public partial class Skill
     public virtual ICollection<Language> Languages { get; set; } = new List<Language>();
 
     public virtual ICollection<Link> Links { get; set; } = new List<Link>();
-
-    public virtual SkillType Type { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
 }
