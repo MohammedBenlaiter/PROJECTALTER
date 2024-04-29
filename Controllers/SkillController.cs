@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PROJECTALTERAPI.Dtos;
 
 namespace PROJECTALTERAPI.Controllers
-{
+{ // yoooooooooooooo
     [Route("api/[controller]")]
     [ApiController]
     public class SkillController : ControllerBase
