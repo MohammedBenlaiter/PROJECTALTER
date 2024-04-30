@@ -1,0 +1,4 @@
+
+
+
+curl -X POST -H "Content-Type: text/plain" -d "<h1>hello world</h1>" http://localhost:5105/api/user/sendEmail
