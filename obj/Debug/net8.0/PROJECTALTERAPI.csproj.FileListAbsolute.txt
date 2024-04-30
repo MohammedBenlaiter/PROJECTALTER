@@ -312,3 +312,6 @@
 /home/ash/Desktop/PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.pdb
 /home/ash/Desktop/PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.genruntimeconfig.cache
 /home/ash/Desktop/PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/ref/PROJECTALTERAPI.dll
+/home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
+/home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/MailKit.dll
+/home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/MimeKit.dll

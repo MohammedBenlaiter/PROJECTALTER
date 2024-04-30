@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using PROJECTALTERAPI.Dtos;
 using PROJECTALTERAPI.Models;
 using Microsoft.AspNetCore.Identity;
+using MimeKit;
+using System.Net.Mail;
+using MailKit.Net.Smtp;
+using MailKit.Net.Imap;
 
 namespace PROJECTALTERAPI.Controllers
 {
@@ -144,21 +148,40 @@ namespace PROJECTALTERAPI.Controllers
             return Ok(new { isUsernameAvailable = true });
         }
 
-        /*         [HttpPost("sendEmail")]
-                public IActionResult SendEmail(string body)
-                {
-                    var email = new MimeMessage();
-                    email.From.Add(MailboxAddress.Parse("andreane.cassin@ethereal.email"));
-                    email.To.Add(MailboxAddress.Parse("andreane.cassin@ethereal.email"));
-                    email.Subject = "YOUR VERIFICATION CODE";
-                    email.Body = new TextPart(TextFormat.Html) { Text = body };
+        [HttpPost("sendEmail")]
+        public IActionResult SendEmail([FromBody] EmailDto request)
+        {
+            try
+            {
+                var email = new MimeMessage();
+                email.From.Add(new MailboxAddress("Tyshawn Murazik", "tyshawn.murazik@ethereal.email"));
+                email.To.Add(new MailboxAddress(request.Name, request.Email));
+                email.Subject = request.Subject;
+                email.Body = new TextPart(MimeKit.Text.TextFormat.Plain) { Text = request.Message };
 
-                    using var smtp = new SmtpClient();
-                    smtp.Connect("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
-                    smtp.Authenticate("andreane.cassin@ethereal.email", "2xp83cH1gGWg3Y67NF");
-                    smtp.Send(email);
-                    smtp.Disconnect(true);
-                    return Ok();
-                } */
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                {
+                    client.Connect("smtp.ethereal.email", 587, false);
+                    client.Authenticate("tyshawn.murazik@ethereal.email", "SEBxy8Rsdk6qEDWtDH");
+                    client.Send(email);
+                    client.Disconnect(true);
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /*  email.From.Add(MailboxAddress.Parse("andreane.cassin@ethereal.email"));
+         email.To.Add(MailboxAddress.Parse("andreane.cassin@ethereal.email"));
+         email.Subject = "YOUR VERIFICATION CODE";
+         email.Body = new TextPart(TextFormat.Html) { Text = body };
+         using var smtp = new SmtpClient();
+         smtp.Connect("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
+         smtp.Authenticate("andreane.cassin@ethereal.email", "2xp83cH1gGWg3Y67NF");
+         smtp.Send(email);
+         smtp.Disconnect(true); */
     }
 }
