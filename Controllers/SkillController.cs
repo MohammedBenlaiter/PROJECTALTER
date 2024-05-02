@@ -90,7 +90,17 @@ namespace PROJECTALTERAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(skills);
+            var dto = skills.Select(s => new SkillDto
+            {
+                SkillId = s.SkillId,
+                UserId = s.UserId,
+                SkillName = s.SkillName,
+                SkillDescription = s.SkillDescription,
+                YearsOfExperience = s.YearsOfExperience,
+                SkillLevel = s.SkillLevel,
+                SkillType = s.SkillType
+            });
+            return Ok(dto);
         }
         [HttpGet("getSkill/{id}")]
         public async Task<ActionResult<Skill>> GetSkill(long id)
