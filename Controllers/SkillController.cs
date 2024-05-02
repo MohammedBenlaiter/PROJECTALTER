@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PROJECTALTERAPI.Dtos;
 
 namespace PROJECTALTERAPI.Controllers
-{ // yoooooooooooooo
+{
     [Route("api/[controller]")]
     [ApiController]
     public class SkillController : ControllerBase
@@ -43,6 +43,44 @@ namespace PROJECTALTERAPI.Controllers
             skillDto.UserId = skill.UserId;
             // Return the created Skill object
             return Ok(skillDto);
+        }
+        [HttpPost("AddSkillLanguage/{id}")]
+        public IActionResult AddSkillLanguage(long id, SkillLanguageDto dto)
+        {
+            var skill = _context.Skills.Find(id);
+            if (skill == null)
+            {
+                return NotFound();
+            }
+            var language = new Language
+            {
+                SkillId = id,
+                LanguageName = dto.LanguageName
+            };
+            _context.Languages.Add(language);
+            _context.SaveChanges();
+            dto.LanguageId = language.LanguageId;
+            dto.SkillId = skill.SkillId;
+            return Ok(dto);
+        }
+        [HttpPost("AddSkillLinks/{id}")]
+        public IActionResult AddSkillLinks(long id, LinkDto dto)
+        {
+            var skill = _context.Skills.Find(id);
+            if (skill == null)
+            {
+                return NotFound();
+            }
+            var link = new Link
+            {
+                SkillId = id,
+                LinkInformation = dto.LinkInformation
+            };
+            _context.Links.Add(link);
+            _context.SaveChanges();
+            dto.LinksId = link.LinksId;
+            dto.SkillId = skill.SkillId;
+            return Ok(dto);
         }
         [HttpGet("getSkill/{id}")]
         public async Task<ActionResult<Skill>> GetSkill(long id)

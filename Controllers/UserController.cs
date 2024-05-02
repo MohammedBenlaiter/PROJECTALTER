@@ -17,7 +17,6 @@ namespace PROJECTALTERAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly AlterDbContext _db;
-
         public UserController(AlterDbContext db)
         {
             _db = db;
@@ -30,6 +29,7 @@ namespace PROJECTALTERAPI.Controllers
 
             return Ok(users); // Return successful response with users d 
         }
+
         [HttpPost("createUser")]
         public IActionResult Create(UserDto dto)
         {
@@ -44,6 +44,7 @@ namespace PROJECTALTERAPI.Controllers
             _db.SaveChanges();
             return Ok(dto);
         }
+
         [HttpPut("updateUser/{id}")]
         public IActionResult Update(int id, UserDto dto)
         {
@@ -158,7 +159,6 @@ namespace PROJECTALTERAPI.Controllers
                 email.To.Add(new MailboxAddress(request.Name, request.Email));
                 email.Subject = request.Subject;
                 email.Body = new TextPart(MimeKit.Text.TextFormat.Plain) { Text = request.Message };
-
                 using (var client = new MailKit.Net.Smtp.SmtpClient())
                 {
                     client.Connect("smtp.ethereal.email", 587, false);
@@ -166,7 +166,6 @@ namespace PROJECTALTERAPI.Controllers
                     client.Send(email);
                     client.Disconnect(true);
                 }
-
                 return Ok();
             }
             catch (Exception ex)
