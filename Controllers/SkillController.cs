@@ -82,6 +82,16 @@ namespace PROJECTALTERAPI.Controllers
             dto.SkillId = skill.SkillId;
             return Ok(dto);
         }
+        [HttpGet("SkillSearch")]
+        public IActionResult SearchSkill(SearchDto query)
+        {
+            var skills = _context.Skills.Where(s => s.SkillName.Contains(query.Query) || s.SkillDescription.Contains(query.Query) || s.SkillLevel.Contains(query.Query) || s.SkillType.Contains(query.Query));
+            if (skills == null)
+            {
+                return NotFound();
+            }
+            return Ok(skills);
+        }
         [HttpGet("getSkill/{id}")]
         public async Task<ActionResult<Skill>> GetSkill(long id)
         {
