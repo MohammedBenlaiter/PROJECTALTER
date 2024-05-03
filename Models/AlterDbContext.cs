@@ -25,6 +25,8 @@ public partial class AlterDbContext : DbContext
 
     public virtual DbSet<Feedback> Feedbacks { get; set; }
 
+    public virtual DbSet<Knowledge> Knowledges { get; set; }
+
     public virtual DbSet<Language> Languages { get; set; }
 
     public virtual DbSet<Link> Links { get; set; }
@@ -158,6 +160,26 @@ public partial class AlterDbContext : DbContext
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.Feedbacks)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("user_id");
+        });
+
+        modelBuilder.Entity<Knowledge>(entity =>
+        {
+            entity.HasKey(e => e.KnowledgeId).HasName("knowledge _pkey");
+
+            entity.ToTable("knowledge ");
+
+            entity.Property(e => e.KnowledgeId)
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("knowledge_id");
+            entity.Property(e => e.KnowledgeName)
+                .HasColumnType("character varying")
+                .HasColumnName("knowledge_name");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Knowledges)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("user_id");
