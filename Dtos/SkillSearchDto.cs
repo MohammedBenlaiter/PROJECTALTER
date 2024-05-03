@@ -1,12 +1,16 @@
-﻿namespace PROJECTALTERAPI.Dtos;
+﻿namespace PROJECTALTERAPI;
 
-public record class SkillDto
+public record class SkillSearchDto
 {
-    public long SkillId { get; set; }
     public long UserId { get; set; }
+
     public string SkillName { get; set; } = null!;
+
     public string SkillDescription { get; set; } = null!;
-    public int YearsOfExperience { get; set; }
+
     public string SkillLevel { get; set; } = null!;
+
     public string SkillType { get; set; } = null!;
+
+    public ICollection<Knowledge> Knowledges { get; set; } = new List<Knowledge>();
 }

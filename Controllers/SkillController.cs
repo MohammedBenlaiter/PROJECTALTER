@@ -82,23 +82,28 @@ namespace PROJECTALTERAPI.Controllers
             dto.SkillId = skill.SkillId;
             return Ok(dto);
         }
-        [HttpGet("SkillSearch")]
-        public IActionResult SearchSkill(SearchDto query)
+        [HttpGet("SkillSearch/{Id}")]
+        public IActionResult SearchSkill(SearchDto query, int Id)
         {
-            var skills = _context.Skills.Where(s => s.SkillName.Contains(query.Query) || s.SkillDescription.Contains(query.Query) || s.SkillLevel.Contains(query.Query) || s.SkillType.Contains(query.Query));
-            if (skills == null)
+            var user = _context.Users.Find(Id);
+            if (user == null)
             {
                 return NotFound();
             }
-            var dto = skills.Select(s => new SkillDto
+            var userKnowledge = _context.Knowledges.Where(k => k.UserId == Id).Select(k => k.KnowledgeName).ToList();
+            var skills = _context.Skills.Where(s => (s.SkillName.Contains(query.Query) || s.SkillDescription.Contains(query.Query) || s.SkillLevel.Contains(query.Query) || s.SkillType.Contains(query.Query)) && userKnowledge.Contains(s.SkillName));
+            if (!skills.Any())
             {
-                SkillId = s.SkillId,
+                return NotFound();
+            }
+            var dto = skills.Select(s => new SkillSearchDto
+            {
                 UserId = s.UserId,
                 SkillName = s.SkillName,
                 SkillDescription = s.SkillDescription,
-                YearsOfExperience = s.YearsOfExperience,
                 SkillLevel = s.SkillLevel,
-                SkillType = s.SkillType
+                SkillType = s.SkillType,
+                Knowledges = s.User.Knowledges
             });
             return Ok(dto);
         }
