@@ -8,6 +8,13 @@ using MimeKit;
 using System.Net.Mail;
 using MailKit.Net.Smtp;
 using MailKit.Net.Imap;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
+using System.CodeDom.Compiler;
 
 namespace PROJECTALTERAPI.Controllers
 {
@@ -16,10 +23,12 @@ namespace PROJECTALTERAPI.Controllers
     // ademmm
     public class UserController : ControllerBase
     {
+        private IConfiguration _configuration;
         private readonly AlterDbContext _db;
-        public UserController(AlterDbContext db)
+        public UserController(AlterDbContext db, IConfiguration configuration)
         {
             _db = db;
+            _configuration = configuration;
         }
 
         [HttpGet("getAllUser")] // Route at method level
@@ -86,10 +95,11 @@ namespace PROJECTALTERAPI.Controllers
                 }
                 var passwordHasher = new PasswordHasher<User>();
                 var verifyResult = passwordHasher.VerifyHashedPassword(user, user.Password, login.Password);
-
+                string token = CreateToken(user);
                 if (verifyResult == PasswordVerificationResult.Success)
                 {
-                    return Ok("You are logged in successfully!");
+                    // return Ok("You are logged in successfully!");
+                    return Ok(token);
                 }
                 else
                 {
@@ -106,26 +116,124 @@ namespace PROJECTALTERAPI.Controllers
         [HttpPost("register")]
         public IActionResult Register(UserRegisterDto dto)
         {
-            var passwordHasher = new PasswordHasher<User>();
+            //var passwordHasher = new PasswordHasher<User>();
             var user = new User
             {
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Username = dto.Username,
-                Password = passwordHasher.HashPassword(null!, dto.Password),
+                Password = dto.Password,
+                //Password = passwordHasher.HashPassword(null!, dto.Password),
             };
             _db.Add(user);
             _db.SaveChanges();
-            var email = new Email
-            {
-                UserId = user.UserId,
-                EmailAdresse = dto.Email
-            };
-            _db.Emails.Add(email);
-            _db.SaveChanges();
+            /*             var email = new Email
+                        {
+                            UserId = user.UserId,
+                            //EmailAdresse = dto.Email
+                        };
+                        _db.Emails.Add(email);
+                        _db.SaveChanges(); */
             return Ok(dto);
         }
-
+        [HttpPost("register2")]
+        public IActionResult Register2(UserRegisterDto dto)
+        {
+            // Check if the username already exists
+            if (_db.Users.Any(u => u.Username == dto.Username))
+            {
+                return BadRequest("Username already exists");
+            }
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            var user = new User
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Username = dto.Username,
+                Password = passwordHash,
+            };
+            _db.Add(user);
+            _db.SaveChanges();
+            return Ok("register successfully");
+        }
+        [AllowAnonymous]
+        [HttpPost("login2")]
+        public IActionResult Login2([FromBody] LoginDto dto)
+        {
+            var user = Auth(dto);
+            if (user != null)
+            {
+                var token = Generate(user);
+                return Ok(token);
+            }
+            return NotFound("Invalid username or password");
+            /*             var user = _db.Users.FirstOrDefault(u => u.Username == dto.Username);
+                        if (user == null)
+                        {
+                            return BadRequest("Invalid username");
+                        } */
+            /*             if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
+                        {
+                            return BadRequest("Invalid password");
+                        } */
+            /*             if (dto.Password != user.Password)
+                        {
+                            return BadRequest("Invalid password");
+                        }
+                        string token = CreateToken(user);
+                        return Ok(dto); */
+        }
+        private string Generate(User user)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var claims = new[] {
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(ClaimTypes.Name, user.Username)
+            };
+            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
+             _configuration["Jwt:Audience"],
+              claims,
+               expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: credentials);
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+        private User Auth(LoginDto dto)
+        {
+            var user = _db.Users.FirstOrDefault(u => u.Username == dto.Username);
+            if (user != null)
+            {
+                /* if (BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
+                {
+                    return user;
+                } */
+                if (dto.Password == user.Password)
+                {
+                    return user;
+                }
+            }
+            return null;
+        }
+        private string CreateToken(User user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("your_secret_key_here"); // Replace with your secret key
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                    new Claim(ClaimTypes.Name, user.Username.ToString()),
+                    // Add other claims as needed
+                }),
+                Expires = DateTime.UtcNow.AddDays(7), // Set token expiration as needed
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Issuer = _configuration["Jwt:Issuer"], // Add this line
+                Audience = _configuration["Jwt:Audience"]
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
         [HttpPost("checkEmail")]
         public IActionResult CheckEmailAvailability(EmailDto dto)
         {
