@@ -95,11 +95,11 @@ namespace PROJECTALTERAPI.Controllers
                 }
                 var passwordHasher = new PasswordHasher<User>();
                 var verifyResult = passwordHasher.VerifyHashedPassword(user, user.Password, login.Password);
-                string token = CreateToken(user);
+                // string token = CreateToken(user);
                 if (verifyResult == PasswordVerificationResult.Success)
                 {
                     // return Ok("You are logged in successfully!");
-                    return Ok(token);
+                    return Ok();
                 }
                 else
                 {
@@ -214,26 +214,47 @@ namespace PROJECTALTERAPI.Controllers
             }
             return null;
         }
-        private string CreateToken(User user)
+        private User GetCurrentUser()
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("your_secret_key_here"); // Replace with your secret key
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var Identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (Identity != null)
             {
-                Subject = new ClaimsIdentity(new Claim[]
+                var userClaim = Identity.Claims;
+                return new User
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                    new Claim(ClaimTypes.Name, user.Username.ToString()),
-                    // Add other claims as needed
-                }),
-                Expires = DateTime.UtcNow.AddDays(7), // Set token expiration as needed
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Issuer = _configuration["Jwt:Issuer"], // Add this line
-                Audience = _configuration["Jwt:Audience"]
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+                    UserId = Convert.ToInt64(userClaim.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value),
+                    Username = userClaim.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value ?? string.Empty
+                };
+            }
+            return null; // Add a return statement for the case when Identity is null
         }
+        [HttpGet("getCurrentUser")]
+        [Authorize]
+        public IActionResult getCurrentEndpoint()
+        {
+            var currentUser = GetCurrentUser();
+            return Ok(currentUser.UserId);
+        }
+        /*         private string CreateToken(User user)
+                {
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var key = Encoding.ASCII.GetBytes("your_secret_key_here"); // Replace with your secret key
+                    var tokenDescriptor = new SecurityTokenDescriptor
+                    {
+                        Subject = new ClaimsIdentity(new Claim[]
+                        {
+                            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                            new Claim(ClaimTypes.Name, user.Username.ToString()),
+                            // Add other claims as needed
+                        }),
+                        Expires = DateTime.UtcNow.AddDays(7), // Set token expiration as needed
+                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                        Issuer = _configuration["Jwt:Issuer"], // Add this line
+                        Audience = _configuration["Jwt:Audience"]
+                    };
+                    var token = tokenHandler.CreateToken(tokenDescriptor);
+                    return tokenHandler.WriteToken(token);
+                } */
         [HttpPost("checkEmail")]
         public IActionResult CheckEmailAvailability(EmailDto dto)
         {
