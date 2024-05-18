@@ -111,7 +111,7 @@ namespace PROJECTALTERAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("login2")]
+        [HttpPost("login")]
         public IActionResult Login2([FromBody] LoginDto dto)
         {
             var user = Auth(dto);
