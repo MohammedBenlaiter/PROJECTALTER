@@ -14,5 +14,5 @@ public record class SkillSearchDto
 
     public string SkillType { get; set; } = null!;
 
-    public ICollection<Knowledge> Knowledges { get; set; } = new List<Knowledge>();
+    public ICollection<Wishlist> wishlists { get; set; } = new List<Wishlist>();
 }

@@ -25,8 +25,6 @@ public partial class AlterDbContext : DbContext
 
     public virtual DbSet<Feedback> Feedbacks { get; set; }
 
-    public virtual DbSet<Knowledge> Knowledges { get; set; }
-
     public virtual DbSet<Language> Languages { get; set; }
 
     public virtual DbSet<Link> Links { get; set; }
@@ -39,12 +37,16 @@ public partial class AlterDbContext : DbContext
 
     public virtual DbSet<Skill> Skills { get; set; }
 
+    public virtual DbSet<Token> Tokens { get; set; }
+
     public virtual DbSet<Topic> Topics { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<Wishlist> Wishlists { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseNpgsql("Host=localhost; Database=alter_db; Username=postgres; Password=2023");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -160,26 +162,6 @@ public partial class AlterDbContext : DbContext
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.Feedbacks)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("user_id");
-        });
-
-        modelBuilder.Entity<Knowledge>(entity =>
-        {
-            entity.HasKey(e => e.KnowledgeId).HasName("knowledge _pkey");
-
-            entity.ToTable("knowledge ");
-
-            entity.Property(e => e.KnowledgeId)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("knowledge_id");
-            entity.Property(e => e.KnowledgeName)
-                .HasColumnType("character varying")
-                .HasColumnName("knowledge_name");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Knowledges)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("user_id");
@@ -325,6 +307,26 @@ public partial class AlterDbContext : DbContext
                 .HasConstraintName("user_id");
         });
 
+        modelBuilder.Entity<Token>(entity =>
+        {
+            entity.HasKey(e => e.TokenId).HasName("token_pkey");
+
+            entity.ToTable("token");
+
+            entity.Property(e => e.TokenId)
+                .ValueGeneratedNever()
+                .HasColumnName("token_id");
+            entity.Property(e => e.Token1)
+                .HasColumnType("character varying")
+                .HasColumnName("token");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Tokens)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("user_id");
+        });
+
         modelBuilder.Entity<Topic>(entity =>
         {
             entity.HasKey(e => e.TopicId).HasName("topics_pkey");
@@ -370,6 +372,26 @@ public partial class AlterDbContext : DbContext
                 .HasColumnType("character varying")
                 .HasColumnName("username");
             entity.Property(e => e.VerifiedUser).HasColumnType("character varying[]");
+        });
+
+        modelBuilder.Entity<Wishlist>(entity =>
+        {
+            entity.HasKey(e => e.WishlistId).HasName("knowledge _pkey");
+
+            entity.ToTable("wishlist");
+
+            entity.Property(e => e.WishlistId)
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("wishlist_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.WishlistName)
+                .HasColumnType("character varying")
+                .HasColumnName("wishlist_name");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Wishlists)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("user_id");
         });
 
         OnModelCreatingPartial(modelBuilder);
