@@ -69,6 +69,7 @@ namespace PROJECTALTERAPI.Controllers
             _db.SaveChanges();
             return Ok(user);
         }
+
         [HttpDelete("deleteUser/{id}")]
         public IActionResult Delete(int id)
         {
@@ -82,82 +83,35 @@ namespace PROJECTALTERAPI.Controllers
             return Ok("the user " + id + " is deleted");
         }
 
-
-        [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto login)
-        {
-            try
-            {
-                var user = await _db.Users.FirstOrDefaultAsync(u => u.Username == login.Username);
-                if (user == null)
-                {
-                    return Unauthorized("Invalid username or password");
-                }
-                var passwordHasher = new PasswordHasher<User>();
-                var verifyResult = passwordHasher.VerifyHashedPassword(user, user.Password, login.Password);
-                // string token = CreateToken(user);
-                if (verifyResult == PasswordVerificationResult.Success)
-                {
-                    // return Ok("You are logged in successfully!");
-                    return Ok();
-                }
-                else
-                {
-                    return Unauthorized("Invalid username or password");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error during login: {ex.Message}");
-                return BadRequest("An error occurred during login.");
-            }
-        }
-
         [HttpPost("register")]
         public IActionResult Register(UserRegisterDto dto)
         {
-            //var passwordHasher = new PasswordHasher<User>();
-            var user = new User
-            {
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Username = dto.Username,
-                Password = dto.Password,
-                //Password = passwordHasher.HashPassword(null!, dto.Password),
-            };
-            _db.Add(user);
-            _db.SaveChanges();
-            /*             var email = new Email
-                        {
-                            UserId = user.UserId,
-                            //EmailAdresse = dto.Email
-                        };
-                        _db.Emails.Add(email);
-                        _db.SaveChanges(); */
-            return Ok(dto);
-        }
-        [HttpPost("register2")]
-        public IActionResult Register2(UserRegisterDto dto)
-        {
-            // Check if the username already exists
             if (_db.Users.Any(u => u.Username == dto.Username))
             {
                 return BadRequest("Username already exists");
             }
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            var passwordHasher = new PasswordHasher<User>();
             var user = new User
             {
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Username = dto.Username,
-                Password = passwordHash,
+                Password = passwordHasher.HashPassword(null!, dto.Password),
             };
             _db.Add(user);
             _db.SaveChanges();
-            return Ok("register successfully");
+            var email = new Email
+            {
+                UserId = user.UserId,
+                EmailAdresse = dto.Email
+            };
+            _db.Emails.Add(email);
+            _db.SaveChanges();
+            return Ok(dto);
         }
+
         [AllowAnonymous]
-        [HttpPost("login2")]
+        [HttpPost("login")]
         public IActionResult Login2([FromBody] LoginDto dto)
         {
             var user = Auth(dto);
@@ -167,21 +121,6 @@ namespace PROJECTALTERAPI.Controllers
                 return Ok(token);
             }
             return NotFound("Invalid username or password");
-            /*             var user = _db.Users.FirstOrDefault(u => u.Username == dto.Username);
-                        if (user == null)
-                        {
-                            return BadRequest("Invalid username");
-                        } */
-            /*             if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
-                        {
-                            return BadRequest("Invalid password");
-                        } */
-            /*             if (dto.Password != user.Password)
-                        {
-                            return BadRequest("Invalid password");
-                        }
-                        string token = CreateToken(user);
-                        return Ok(dto); */
         }
         private string Generate(User user)
         {
@@ -201,18 +140,15 @@ namespace PROJECTALTERAPI.Controllers
         private User Auth(LoginDto dto)
         {
             var user = _db.Users.FirstOrDefault(u => u.Username == dto.Username);
+            var passwordHasher = new PasswordHasher<User>();
             if (user != null)
             {
-                /* if (BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
-                {
-                    return user;
-                } */
-                if (dto.Password == user.Password)
+                if (passwordHasher.VerifyHashedPassword(user, user.Password, dto.Password) == PasswordVerificationResult.Success)
                 {
                     return user;
                 }
             }
-            return null;
+            return null!;
         }
         private User GetCurrentUser()
         {
@@ -226,8 +162,9 @@ namespace PROJECTALTERAPI.Controllers
                     Username = userClaim.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value ?? string.Empty
                 };
             }
-            return null; // Add a return statement for the case when Identity is null
+            return null!; // Add a return statement for the case when Identity is null
         }
+
         [HttpGet("getCurrentUser")]
         [Authorize]
         public IActionResult getCurrentEndpoint()
@@ -235,26 +172,7 @@ namespace PROJECTALTERAPI.Controllers
             var currentUser = GetCurrentUser();
             return Ok(currentUser.UserId);
         }
-        /*         private string CreateToken(User user)
-                {
-                    var tokenHandler = new JwtSecurityTokenHandler();
-                    var key = Encoding.ASCII.GetBytes("your_secret_key_here"); // Replace with your secret key
-                    var tokenDescriptor = new SecurityTokenDescriptor
-                    {
-                        Subject = new ClaimsIdentity(new Claim[]
-                        {
-                            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                            new Claim(ClaimTypes.Name, user.Username.ToString()),
-                            // Add other claims as needed
-                        }),
-                        Expires = DateTime.UtcNow.AddDays(7), // Set token expiration as needed
-                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                        Issuer = _configuration["Jwt:Issuer"], // Add this line
-                        Audience = _configuration["Jwt:Audience"]
-                    };
-                    var token = tokenHandler.CreateToken(tokenDescriptor);
-                    return tokenHandler.WriteToken(token);
-                } */
+
         [HttpPost("checkEmail")]
         public IActionResult CheckEmailAvailability(EmailDto dto)
         {
@@ -265,7 +183,6 @@ namespace PROJECTALTERAPI.Controllers
             }
             return Ok(new { isEmailAvailable = true });
         }
-
 
         [HttpPost("checkUsername")]
         public IActionResult CheckUsernameAvalability(UsernameDto dto)
@@ -302,14 +219,5 @@ namespace PROJECTALTERAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        /*  email.From.Add(MailboxAddress.Parse("andreane.cassin@ethereal.email"));
-         email.To.Add(MailboxAddress.Parse("andreane.cassin@ethereal.email"));
-         email.Subject = "YOUR VERIFICATION CODE";
-         email.Body = new TextPart(TextFormat.Html) { Text = body };
-         using var smtp = new SmtpClient();
-         smtp.Connect("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
-         smtp.Authenticate("andreane.cassin@ethereal.email", "2xp83cH1gGWg3Y67NF");
-         smtp.Send(email);
-         smtp.Disconnect(true); */
     }
 }

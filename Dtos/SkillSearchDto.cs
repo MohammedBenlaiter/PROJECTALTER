@@ -4,6 +4,8 @@ public record class SkillSearchDto
 {
     public long UserId { get; set; }
 
+    public string Username { get; set; } = null!;
+
     public string SkillName { get; set; } = null!;
 
     public string SkillDescription { get; set; } = null!;
