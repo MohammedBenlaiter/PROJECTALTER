@@ -86,10 +86,10 @@ namespace PROJECTALTERAPI.Controllers
         [HttpPost("register")]
         public IActionResult Register(UserRegisterDto dto)
         {
-            if (_db.Users.Any(u => u.Username == dto.Username))
+            /* if (_db.Users.Any(u => u.Username == dto.Username))
             {
                 return BadRequest("Username already exists");
-            }
+            } */
             var passwordHasher = new PasswordHasher<User>();
             var user = new User
             {

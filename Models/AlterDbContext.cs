@@ -25,11 +25,11 @@ public partial class AlterDbContext : DbContext
 
     public virtual DbSet<Feedback> Feedbacks { get; set; }
 
-    public virtual DbSet<Knowledge> Knowledges { get; set; }
-
     public virtual DbSet<Language> Languages { get; set; }
 
     public virtual DbSet<Link> Links { get; set; }
+
+    public virtual DbSet<Message> Messages { get; set; }
 
     public virtual DbSet<Offer> Offers { get; set; }
 
@@ -39,9 +39,13 @@ public partial class AlterDbContext : DbContext
 
     public virtual DbSet<Skill> Skills { get; set; }
 
+    public virtual DbSet<Token> Tokens { get; set; }
+
     public virtual DbSet<Topic> Topics { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<Wishlist> Wishlists { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -165,26 +169,6 @@ public partial class AlterDbContext : DbContext
                 .HasConstraintName("user_id");
         });
 
-        modelBuilder.Entity<Knowledge>(entity =>
-        {
-            entity.HasKey(e => e.KnowledgeId).HasName("knowledge _pkey");
-
-            entity.ToTable("knowledge ");
-
-            entity.Property(e => e.KnowledgeId)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("knowledge_id");
-            entity.Property(e => e.KnowledgeName)
-                .HasColumnType("character varying")
-                .HasColumnName("knowledge_name");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Knowledges)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("user_id");
-        });
-
         modelBuilder.Entity<Language>(entity =>
         {
             entity.HasKey(e => e.LanguageId).HasName("languages_pkey");
@@ -223,6 +207,32 @@ public partial class AlterDbContext : DbContext
                 .HasForeignKey(d => d.SkillId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("skill_id");
+        });
+
+        modelBuilder.Entity<Message>(entity =>
+        {
+            entity.HasKey(e => e.MessageId).HasName("Message_pkey");
+
+            entity.ToTable("message");
+
+            entity.Property(e => e.MessageId)
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("message_id");
+            entity.Property(e => e.Content)
+                .HasColumnType("character varying")
+                .HasColumnName("content");
+            entity.Property(e => e.ReceiverId).HasColumnName("receiver_id");
+            entity.Property(e => e.SenderId).HasColumnName("sender_id");
+
+            entity.HasOne(d => d.Receiver).WithMany(p => p.MessageReceivers)
+                .HasForeignKey(d => d.ReceiverId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("receiver_id");
+
+            entity.HasOne(d => d.Sender).WithMany(p => p.MessageSenders)
+                .HasForeignKey(d => d.SenderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("sender_id");
         });
 
         modelBuilder.Entity<Offer>(entity =>
@@ -325,6 +335,26 @@ public partial class AlterDbContext : DbContext
                 .HasConstraintName("user_id");
         });
 
+        modelBuilder.Entity<Token>(entity =>
+        {
+            entity.HasKey(e => e.TokenId).HasName("token_pkey");
+
+            entity.ToTable("token");
+
+            entity.Property(e => e.TokenId)
+                .ValueGeneratedNever()
+                .HasColumnName("token_id");
+            entity.Property(e => e.Token1)
+                .HasColumnType("character varying")
+                .HasColumnName("token");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Tokens)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("user_id");
+        });
+
         modelBuilder.Entity<Topic>(entity =>
         {
             entity.HasKey(e => e.TopicId).HasName("topics_pkey");
@@ -370,6 +400,26 @@ public partial class AlterDbContext : DbContext
                 .HasColumnType("character varying")
                 .HasColumnName("username");
             entity.Property(e => e.VerifiedUser).HasColumnType("character varying[]");
+        });
+
+        modelBuilder.Entity<Wishlist>(entity =>
+        {
+            entity.HasKey(e => e.WishlistId).HasName("knowledge _pkey");
+
+            entity.ToTable("wishlist");
+
+            entity.Property(e => e.WishlistId)
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("wishlist_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.WishlistName)
+                .HasColumnType("character varying")
+                .HasColumnName("wishlist_name");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Wishlists)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("user_id");
         });
 
         OnModelCreatingPartial(modelBuilder);

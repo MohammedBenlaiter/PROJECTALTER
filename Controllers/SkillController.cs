@@ -90,8 +90,8 @@ namespace PROJECTALTERAPI.Controllers
             {
                 return NotFound();
             }
-            var userKnowledge = _context.Knowledges.Where(k => k.UserId == Id).Select(k => k.KnowledgeName).ToList();
-            var skills = _context.Skills.Where(s => (s.SkillName.Contains(query.Query) || s.SkillDescription.Contains(query.Query) || s.SkillLevel.Contains(query.Query) || s.SkillType.Contains(query.Query)) && userKnowledge.Contains(s.SkillName));
+            var userWishlist = _context.Wishlists.Where(k => k.UserId == Id).Select(k => k.WishlistName).ToList();
+            var skills = _context.Skills.Where(s => (s.SkillName.Contains(query.Query) || s.SkillDescription.Contains(query.Query) || s.SkillLevel.Contains(query.Query) || s.SkillType.Contains(query.Query)) && userWishlist.Contains(s.SkillName));
             if (!skills.Any())
             {
                 return NotFound();
@@ -103,7 +103,7 @@ namespace PROJECTALTERAPI.Controllers
                 SkillDescription = s.SkillDescription,
                 SkillLevel = s.SkillLevel,
                 SkillType = s.SkillType,
-                Knowledges = s.User.Knowledges
+                wishlists = s.User.Wishlists,
             });
             return Ok(dto);
         }
@@ -126,7 +126,7 @@ namespace PROJECTALTERAPI.Controllers
                 SkillDescription = s.SkillDescription,
                 SkillLevel = s.SkillLevel,
                 SkillType = s.SkillType,
-                Knowledges = s.User.Knowledges,
+                wishlists = s.User.Wishlists,
             });
             return Ok(dto);
         }
