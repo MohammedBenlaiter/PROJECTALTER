@@ -3,7 +3,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore; // Add this using directive
-
+using PROJECTALTERAPI.Hubs;
 using Microsoft.IdentityModel.Tokens;
 using PROJECTALTERAPI;
 internal class Program
@@ -18,6 +18,9 @@ internal class Program
         builder.Services.AddDbContext<AlterDbContext>();
         builder.Services.AddAuthorization();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddSignalR();
+        //builder.Services.AddSingleton<Sharedb>();
+
 
         // ...
 
@@ -50,6 +53,11 @@ internal class Program
         app.MapIdentityApi<IdentityUser>();
         // 16 april test s
         app.UseHttpsRedirection();
+
+
+        // this is for signalR
+        app.MapHub<ChatHub>("/chatHub");
+
         app.UseStaticFiles();
 
         app.UseRouting();

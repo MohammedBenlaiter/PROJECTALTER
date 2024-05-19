@@ -29,6 +29,8 @@ public partial class AlterDbContext : DbContext
 
     public virtual DbSet<Link> Links { get; set; }
 
+    public virtual DbSet<Message> Messages { get; set; }
+
     public virtual DbSet<Offer> Offers { get; set; }
 
     public virtual DbSet<RatingStar> RatingStars { get; set; }
@@ -205,6 +207,32 @@ public partial class AlterDbContext : DbContext
                 .HasForeignKey(d => d.SkillId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("skill_id");
+        });
+
+        modelBuilder.Entity<Message>(entity =>
+        {
+            entity.HasKey(e => e.MessageId).HasName("Message_pkey");
+
+            entity.ToTable("message");
+
+            entity.Property(e => e.MessageId)
+                .UseIdentityAlwaysColumn()
+                .HasColumnName("message_id");
+            entity.Property(e => e.Content)
+                .HasColumnType("character varying")
+                .HasColumnName("content");
+            entity.Property(e => e.ReceiverId).HasColumnName("receiver_id");
+            entity.Property(e => e.SenderId).HasColumnName("sender_id");
+
+            entity.HasOne(d => d.Receiver).WithMany(p => p.MessageReceivers)
+                .HasForeignKey(d => d.ReceiverId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("receiver_id");
+
+            entity.HasOne(d => d.Sender).WithMany(p => p.MessageSenders)
+                .HasForeignKey(d => d.SenderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("sender_id");
         });
 
         modelBuilder.Entity<Offer>(entity =>

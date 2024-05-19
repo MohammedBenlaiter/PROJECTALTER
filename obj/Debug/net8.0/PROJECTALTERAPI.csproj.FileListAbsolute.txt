@@ -335,3 +335,13 @@
 /home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /home/ash/Desktop/PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.MvcApplicationPartsAssemblyInfo.cs
+/home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Connections.Abstractions.dll
+/home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Http.Connections.Client.dll
+/home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Http.Connections.Common.dll
+/home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Client.dll
+/home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Client.Core.dll
+/home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Common.dll
+/home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+/home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Features.dll
+/home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
