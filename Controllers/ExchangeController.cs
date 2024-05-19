@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using PROJECTALTERAPI.Dtos;
+using PROJECTALTERAPI.Hubs;
 
 namespace PROJECTALTERAPI.Controllers
 {
@@ -8,10 +10,13 @@ namespace PROJECTALTERAPI.Controllers
     public class ExchangeController : ControllerBase
     {
         private readonly AlterDbContext _context;
+        private readonly IHubContext<ChatHub> _hubContext;
 
-        public ExchangeController(AlterDbContext context)
+
+        public ExchangeController(AlterDbContext context, IHubContext<ChatHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         [HttpPost("CreateExchange/{id_rec}/{id_send}/{id_s_rec}/{id_s_send}")]
@@ -35,7 +40,22 @@ namespace PROJECTALTERAPI.Controllers
             };
             _context.Exchanges.Add(exchange);
             _context.SaveChanges();
+
+            // Send notification to id_rec users with SignalR
+            var notification = new NotificationDto
+            {
+                ReciverId = id_rec,
+                Message = "You have a new exchange request"
+            };
+            _hubContext.Clients.User(id_rec.ToString()).SendAsync("ReceiveNotification", notification);
+
             return Ok(dto);
         }
+    }
+
+    internal class NotificationDto
+    {
+        public long ReciverId { get; set; }
+        public string Message { get; set; } = default!;
     }
 }
