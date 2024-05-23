@@ -38,7 +38,24 @@ namespace PROJECTALTERAPI.Controllers
 
             return Ok(users); // Return successful response with users d 
         }
-
+        [HttpGet("getUser")]
+        public IActionResult GetUser()
+        {
+            var id = GetCurrentUser();
+            var user = _db.Users.SingleOrDefault(g => g.UserId == id.UserId);
+            if (user == null)
+            {
+                return NotFound($"User does not exist");
+            }
+            var user2 = new UserDto
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.Username,
+                Password = user.Password,
+            };
+            return Ok(user2);
+        }
         [HttpPost("createUser")]
         public IActionResult Create(UserDto dto)
         {
@@ -114,11 +131,13 @@ namespace PROJECTALTERAPI.Controllers
         [HttpPost("login")]
         public IActionResult Login2([FromBody] LoginDto dto)
         {
+            var tokenDto = new TokenDto();
             var user = Auth(dto);
             if (user != null)
             {
                 var token = Generate(user);
-                return Ok(token);
+                tokenDto.Token = token;
+                return Ok(tokenDto);
             }
             return NotFound("Invalid username or password");
         }
@@ -133,7 +152,7 @@ namespace PROJECTALTERAPI.Controllers
             var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
              _configuration["Jwt:Audience"],
               claims,
-               expires: DateTime.Now.AddMinutes(30),
+               expires: DateTime.Now.AddHours(30),
                 signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
@@ -172,7 +191,20 @@ namespace PROJECTALTERAPI.Controllers
             var currentUser = GetCurrentUser();
             return Ok(currentUser.UserId);
         }
-
+        [HttpGet("getUserBySkillId/{id}")]
+        public IActionResult GetUserBySkillId(long id)
+        {
+            var users = _db.Users.FirstOrDefault(u => u.Skills.Any(s => s.SkillId == id));
+            //  var user = _db.Users.Where(u => u.Skills.Any(s => s.SkillId == id)).ToList();
+            UserDto dto = new UserDto
+            {
+                FirstName = users.FirstName,
+                LastName = users.LastName,
+                Username = users.Username,
+                Password = "mat7awesch tafhem",
+            };
+            return Ok(dto);
+        }
         [HttpPost("checkEmail")]
         public IActionResult CheckEmailAvailability(EmailDto dto)
         {
@@ -196,7 +228,7 @@ namespace PROJECTALTERAPI.Controllers
         }
 
         [HttpPost("sendEmail")]
-        public IActionResult SendEmail([FromBody] EmailDto request)
+        public IActionResult SendEmail([FromBody] SendEmailDto request)
         {
             try
             {

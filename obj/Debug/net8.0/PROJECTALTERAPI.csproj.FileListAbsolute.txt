@@ -345,3 +345,279 @@
 /home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
 /home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Features.dll
 /home/ash/Desktop/PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/appsettings.Development.json
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/appsettings.json
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/PROJECTALTERAPI.staticwebassets.runtime.json
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/PROJECTALTERAPI.exe
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/PROJECTALTERAPI.deps.json
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/PROJECTALTERAPI.runtimeconfig.json
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/PROJECTALTERAPI.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/PROJECTALTERAPI.pdb
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/BCrypt.Net-Next.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Humanizer.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/MailKit.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Connections.Abstractions.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Cryptography.Internal.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Http.Connections.Client.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Http.Connections.Common.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Client.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Client.Core.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Common.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Features.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Identity.Core.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Identity.Stores.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Microsoft.OpenApi.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/MimeKit.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Mono.TextTemplating.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Npgsql.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/System.CodeDom.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/System.Composition.AttributedModel.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/System.Composition.Convention.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/System.Composition.Hosting.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/System.Composition.Runtime.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/System.Composition.TypedParts.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.csproj.AssemblyReference.cache
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.AssemblyInfoInputs.cache
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.AssemblyInfo.cs
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.csproj.CoreCompileInputs.cache
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.MvcApplicationPartsAssemblyInfo.cs
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.MvcApplicationPartsAssemblyInfo.cache
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.RazorAssemblyInfo.cache
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.RazorAssemblyInfo.cs
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.sourcelink.json
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/staticwebassets.build.json
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/staticwebassets.development.json
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/staticwebassets/msbuild.PROJECTALTERAPI.Microsoft.AspNetCore.StaticWebAssets.props
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/staticwebassets/msbuild.build.PROJECTALTERAPI.props
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.PROJECTALTERAPI.props
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.PROJECTALTERAPI.props
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/staticwebassets.pack.json
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/scopedcss/bundle/PROJECTALTERAPI.styles.css
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/scopedcss/projectbundle/PROJECTALTERAPI.bundle.scp.css
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTA.AF9A61BA.Up2Date
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/refint/PROJECTALTERAPI.dll
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.pdb
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.genruntimeconfig.cache
+C:/Users/zakar/OneDrive/Desktop/PROJECTALTER/obj/Debug/net8.0/ref/PROJECTALTERAPI.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/appsettings.Development.json
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/appsettings.json
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/PROJECTALTERAPI.staticwebassets.runtime.json
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/PROJECTALTERAPI
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/PROJECTALTERAPI.deps.json
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/PROJECTALTERAPI.runtimeconfig.json
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/PROJECTALTERAPI.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/PROJECTALTERAPI.pdb
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/BCrypt.Net-Next.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Humanizer.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/MailKit.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Connections.Abstractions.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Cryptography.Internal.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Http.Connections.Client.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Http.Connections.Common.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Client.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Client.Core.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Common.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Features.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Identity.Core.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Identity.Stores.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Microsoft.OpenApi.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/MimeKit.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Mono.TextTemplating.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Npgsql.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/System.CodeDom.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/System.Composition.AttributedModel.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/System.Composition.Convention.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/System.Composition.Hosting.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/System.Composition.Runtime.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/System.Composition.TypedParts.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.csproj.AssemblyReference.cache
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.GeneratedMSBuildEditorConfig.editorconfig
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.AssemblyInfoInputs.cache
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.AssemblyInfo.cs
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.csproj.CoreCompileInputs.cache
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.MvcApplicationPartsAssemblyInfo.cs
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.MvcApplicationPartsAssemblyInfo.cache
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.RazorAssemblyInfo.cache
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.RazorAssemblyInfo.cs
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.sourcelink.json
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/staticwebassets.build.json
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/staticwebassets.development.json
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/staticwebassets/msbuild.PROJECTALTERAPI.Microsoft.AspNetCore.StaticWebAssets.props
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/staticwebassets/msbuild.build.PROJECTALTERAPI.props
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.PROJECTALTERAPI.props
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.PROJECTALTERAPI.props
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/staticwebassets.pack.json
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/scopedcss/bundle/PROJECTALTERAPI.styles.css
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/scopedcss/projectbundle/PROJECTALTERAPI.bundle.scp.css
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTA.AF9A61BA.Up2Date
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/refint/PROJECTALTERAPI.dll
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.pdb
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/PROJECTALTERAPI.genruntimeconfig.cache
+/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/Debug/net8.0/ref/PROJECTALTERAPI.dll

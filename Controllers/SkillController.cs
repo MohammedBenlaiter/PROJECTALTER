@@ -4,6 +4,7 @@ using PROJECTALTERAPI.Models;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PROJECTALTERAPI.Dtos;
+using System.Security.Claims;
 
 namespace PROJECTALTERAPI.Controllers
 {
@@ -11,17 +12,34 @@ namespace PROJECTALTERAPI.Controllers
     [ApiController]
     public class SkillController : ControllerBase
     {
+        private IConfiguration _configuration;
         private readonly AlterDbContext _context;
 
-        public SkillController(AlterDbContext context)
+        public SkillController(AlterDbContext context , IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
-        [HttpPost("CreateSkillListining/{id}")]
-        public IActionResult CreateSkillListining(long id, SkillDto skillDto)
+        private User GetCurrentUser()
         {
+            var Identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (Identity != null)
+            {
+                var userClaim = Identity.Claims;
+                return new User
+                {
+                    UserId = Convert.ToInt64(userClaim.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value),
+                    Username = userClaim.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value ?? string.Empty
+                };
+            }
+            return null!; // Add a return statement for the case when Identity is null
+        }
+        [HttpPost("CreateSkillListining")]
+        public IActionResult CreateSkillListining(SkillDto skillDto)
+        {
+            var userId = GetCurrentUser();
             // Check if the provided ID exists in the database
-            var user = _context.Users.Find(id);
+            var user = _context.Users.Find(userId.UserId);
             if (user == null)
             {
                 return NotFound();
@@ -29,7 +47,49 @@ namespace PROJECTALTERAPI.Controllers
             // Create a new Skill object based on the provided SkillDto
             var skill = new Skill
             {
-                UserId = id,
+                UserId = userId.UserId,
+                SkillName = skillDto.SkillName,
+                SkillDescription = skillDto.SkillDescription,
+                YearsOfExperience = skillDto.YearsOfExperience,
+                SkillLevel = skillDto.SkillLevel,
+                SkillType = skillDto.SkillType
+            };
+            // Add the new Skill to the context and save changes
+            _context.Skills.Add(skill);
+            _context.SaveChanges();
+            skillDto.SkillId = skill.SkillId;
+            skillDto.UserId = skill.UserId;
+            var language = new Language
+            {
+                SkillId = skillDto.SkillId,
+                LanguageName = skillDto.LanguageName
+            };
+            _context.Languages.Add(language);
+            _context.SaveChanges();
+            var link = new Link
+            {
+                SkillId = skillDto.SkillId,
+                LinkInformation = skillDto.LinkInformation
+            };
+            _context.Links.Add(link);
+            _context.SaveChanges();
+            // Return the created Skill object
+            return Ok(skillDto);
+        }
+        [HttpPost("CreateSkillListining2")]
+        public IActionResult CreateSkillListining2(SkillDto skillDto)
+        {
+            var userId = GetCurrentUser();
+            // Check if the provided ID exists in the database
+            var user = _context.Users.Find(userId.UserId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            // Create a new Skill object based on the provided SkillDto
+            var skill = new Skill
+            {
+                UserId = userId.UserId,
                 SkillName = skillDto.SkillName,
                 SkillDescription = skillDto.SkillDescription,
                 YearsOfExperience = skillDto.YearsOfExperience,
@@ -130,17 +190,31 @@ namespace PROJECTALTERAPI.Controllers
             });
             return Ok(dto);
         }
-        [HttpGet("getSkill/{id}")]
-        public async Task<ActionResult<Skill>> GetSkill(long id)
+        [HttpGet("getSkill")]
+        public async Task<ActionResult<Skill>> GetSkill()
         {
-            var skill = await _context.Skills.FindAsync(id);
+            var userId = GetCurrentUser();
+            var skill = await _context.Skills.FindAsync(userId.UserId);
 
-            if (skill == null)
+            var skills = _context.Skills.Where(s => s.UserId == userId.UserId);
+
+            if (skills == null)
             {
                 return NotFound();
             }
-
-            return skill;
+            return Ok(skills);
+        }
+        [HttpGet("getSkills")]
+        public async Task<ActionResult<Skill>> GetSkills()
+        {
+            //var userId = GetCurrentUser();
+            var skills = await _context.Skills.ToListAsync();
+            //var skills = _context.Skills.Where(s => s.UserId == userId.UserId);
+            if (skills == null)
+            {
+                return NotFound();
+            }
+            return Ok(skills);
         }
         [HttpGet("api/users/{userId}")]
         public async Task<IActionResult> UserExists(long userId)

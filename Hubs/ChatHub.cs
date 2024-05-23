@@ -1,38 +1,41 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using System.Collections.Concurrent;
+using Microsoft.AspNetCore.SignalR;
 namespace PROJECTALTERAPI.Hubs;
 
 public sealed class ChatHub : Hub
 {
-    public async Task SendMessage(long senderId, long receiverId, string message)
+    private static ConcurrentDictionary<string, string> _connections = new ConcurrentDictionary<string, string>();
+
+    public override async Task OnConnectedAsync()
     {
-        await Clients.All.SendAsync("ReceiveMessage", senderId, receiverId, message);
+        var userId = Context.UserIdentifier; // Get the user ID from the current context
+        if (userId != null)
+        {
+            _connections.TryAdd(Context.ConnectionId, userId);
+        }
+        await base.OnConnectedAsync();
     }
 
+    public override async Task OnDisconnectedAsync(Exception? exception)
+    {
+        _connections.TryRemove(Context.ConnectionId, out _);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        await base.OnDisconnectedAsync(exception);
+    }
+    public async Task SendMessage(long senderId, long receiverId, string message)
+    {
+        var receiverConnectionId = _connections.FirstOrDefault(x => x.Value == receiverId.ToString()).Key;
+        if (receiverConnectionId != null)
+        {
+            await Clients.Client(receiverConnectionId).SendAsync("ReceiveMessage", senderId, receiverId, message);
+        }
+    }
+    /*     private static ConcurrentDictionary<string, string> _connections = new ConcurrentDictionary<string, string>();
+     */
+    /*     public async Task SendMessage(long senderId, long receiverId, string message)
+        {
+            await Clients.User(receiverId.ToString()).SendAsync("ReceiveMessage", senderId, receiverId, message);
+        } */
 
     /*     public override async Task OnConnectedAsync()
         {
