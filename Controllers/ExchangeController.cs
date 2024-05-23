@@ -60,9 +60,25 @@ namespace PROJECTALTERAPI.Controllers
         [HttpGet("ExchangeNotification/{id}")]
         public IActionResult ExchangeNotification(long id)
         {
-            //var user = GetCurrentUser();
             var exchanges = _context.Exchanges.Where(e => e.ReciverId == id && e.Statues == "sended").ToList();
-            return Ok(exchanges);
+            var ExchangeNotificationDto = new List<ExchangeNotificationDto>();
+            foreach (var exchange in exchanges)
+            {
+                var sender = _context.Users.FirstOrDefault(u => u.UserId == exchange.SenderId);
+                var skill = _context.Skills.FirstOrDefault(s => s.SkillId == exchange.SkillReceiveId);
+                ExchangeNotificationDto.Add(new ExchangeNotificationDto
+                {
+                    ExchangeId = exchange.ExchangeId,
+                    ReciverId = exchange.ReciverId,
+                    SenderId = exchange.SenderId,
+                    SkillReceiveId = exchange.SkillReceiveId,
+                    Statues = exchange.Statues,
+                    senderFirstName = sender.FirstName,
+                    senderLastName = sender.LastName,
+                    senderUserName = sender.Username
+                });
+            }
+            return Ok(ExchangeNotificationDto);
         }
         private string Generate(User user)
         {
