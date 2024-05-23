@@ -57,10 +57,11 @@ namespace PROJECTALTERAPI.Controllers
 
             return Ok(dto);
         }
-        [HttpGet("ExchangeNotification/{id}")]
-        public IActionResult ExchangeNotification(long id)
+        [HttpGet("ExchangeNotification")]
+        public IActionResult ExchangeNotification()
         {
-            var exchanges = _context.Exchanges.Where(e => e.ReciverId == id && e.Statues == "sended").ToList();
+            var user = GetCurrentUser();
+            var exchanges = _context.Exchanges.Where(e => e.ReciverId == user.UserId && e.Statues == "sended").ToList();
             var ExchangeNotificationDto = new List<ExchangeNotificationDto>();
             foreach (var exchange in exchanges)
             {
@@ -80,10 +81,11 @@ namespace PROJECTALTERAPI.Controllers
             }
             return Ok(ExchangeNotificationDto);
         }
-        [HttpPost("AcceptExchange/{id}")]
-        public IActionResult AcceptExchange(long id)
+        [HttpPost("AcceptExchange")]
+        public IActionResult AcceptExchange()
         {
-            var exchange = _context.Exchanges.FirstOrDefault(e => e.ExchangeId == id);
+            var user = GetCurrentUser();
+            var exchange = _context.Exchanges.FirstOrDefault(e => e.ExchangeId == user.UserId);
             if (exchange != null)
             {
                 exchange.Statues = "accepted";
@@ -95,10 +97,11 @@ namespace PROJECTALTERAPI.Controllers
                 return NotFound();
             }
         }
-        [HttpPost("RefuseExchange/{id}")]
-        public IActionResult RefuseExchange(long id)
+        [HttpPost("RefuseExchange")]
+        public IActionResult RefuseExchange()
         {
-            var exchange = _context.Exchanges.FirstOrDefault(e => e.ExchangeId == id);
+            var user = GetCurrentUser();
+            var exchange = _context.Exchanges.FirstOrDefault(e => e.ExchangeId == user.UserId);
             if (exchange != null)
             {
                 exchange.Statues = "refused";
@@ -110,10 +113,11 @@ namespace PROJECTALTERAPI.Controllers
                 return NotFound();
             }
         }
-        [HttpGet("GetUsersExchanges/{id}")]
-        public IActionResult ExchangeNotification2(long id)
+        [HttpGet("GetUsersExchanges")]
+        public IActionResult ExchangeNotification2()
         {
-            var exchanges = _context.Exchanges.Where(e => (e.ReciverId == id || e.SenderId == id) && e.Statues == "accepted").ToList();
+            var user = GetCurrentUser();
+            var exchanges = _context.Exchanges.Where(e => (e.ReciverId == user.UserId || e.SenderId == user.UserId) && e.Statues == "accepted").ToList();
             var ExchangeNotificationDto = new List<ExchangeNotificationDto>();
             foreach (var exchange in exchanges)
             {
