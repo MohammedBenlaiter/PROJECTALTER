@@ -13,7 +13,6 @@ public sealed class ChatHub : Hub
         {
             _connections.TryAdd(Context.ConnectionId, userId);
         }
-
         await base.OnConnectedAsync();
     }
 
