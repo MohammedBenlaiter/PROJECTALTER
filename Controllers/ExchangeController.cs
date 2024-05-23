@@ -80,6 +80,59 @@ namespace PROJECTALTERAPI.Controllers
             }
             return Ok(ExchangeNotificationDto);
         }
+        [HttpPost("AcceptExchange/{id}")]
+        public IActionResult AcceptExchange(long id)
+        {
+            var exchange = _context.Exchanges.FirstOrDefault(e => e.ExchangeId == id);
+            if (exchange != null)
+            {
+                exchange.Statues = "accepted";
+                _context.SaveChanges();
+                return Ok(exchange);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        [HttpPost("RefuseExchange/{id}")]
+        public IActionResult RefuseExchange(long id)
+        {
+            var exchange = _context.Exchanges.FirstOrDefault(e => e.ExchangeId == id);
+            if (exchange != null)
+            {
+                exchange.Statues = "refused";
+                _context.SaveChanges();
+                return Ok(exchange);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        [HttpGet("GetUsersExchanges/{id}")]
+        public IActionResult ExchangeNotification2(long id)
+        {
+            var exchanges = _context.Exchanges.Where(e => (e.ReciverId == id || e.SenderId == id) && e.Statues == "accepted").ToList();
+            var ExchangeNotificationDto = new List<ExchangeNotificationDto>();
+            foreach (var exchange in exchanges)
+            {
+                var sender = _context.Users.FirstOrDefault(u => u.UserId == exchange.SenderId);
+                var skill = _context.Skills.FirstOrDefault(s => s.SkillId == exchange.SkillReceiveId);
+                ExchangeNotificationDto.Add(new ExchangeNotificationDto
+                {
+                    ExchangeId = exchange.ExchangeId,
+                    ReciverId = exchange.ReciverId,
+                    SenderId = exchange.SenderId,
+                    SkillReceiveId = exchange.SkillReceiveId,
+                    Statues = exchange.Statues,
+                    senderFirstName = sender.FirstName,
+                    senderLastName = sender.LastName,
+                    senderUserName = sender.Username
+                });
+            }
+            return Ok(ExchangeNotificationDto);
+        }
         private string Generate(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty));
