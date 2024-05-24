@@ -4,7 +4,35 @@ namespace PROJECTALTERAPI.Hubs;
 
 public sealed class ChatHub : Hub
 {
-    private static ConcurrentDictionary<string, string> _connections = new ConcurrentDictionary<string, string>();
+    public async Task JoinChat(User conn)
+    {
+        await Clients.All.SendAsync("ReceiveMessage", "admin", $"{conn.Username} has joined the chat");
+    }
+    public async Task JoinSpecificChatRoom(User conn)
+    {
+        await Groups.AddToGroupAsync(Context.ConnectionId, conn.Username);
+        await Clients.Group(conn.Username)
+        .SendAsync("ReceiveMessage", "admin", $"{conn.Username} has joined the chat");
+    }
+
+    /* public async Task LeaveChat(User conn)
+    {
+        await Clients.All.SendAsync("ReceiveMessage", "admin", $"{conn.Username} has left the chat");
+    }
+    public async Task SendMessage(long senderId, long receiverId, string message)
+    {
+        await Clients.User(receiverId.ToString()).SendAsync("ReceiveMessage", senderId, receiverId, message);
+    }
+    public async Task SendMessageToAll(long senderId, string message)
+    {
+        await Clients.All.SendAsync("ReceiveMessage", senderId, message);
+    }
+    public async Task SendMessageToUser(long senderId, long receiverId, string message)
+    {
+        await Clients.User(receiverId.ToString()).SendAsync("ReceiveMessage", senderId, receiverId, message);
+    } */
+
+    /* private static ConcurrentDictionary<string, string> _connections = new ConcurrentDictionary<string, string>();
 
     public override async Task OnConnectedAsync()
     {
@@ -29,7 +57,12 @@ public sealed class ChatHub : Hub
         {
             await Clients.Client(receiverConnectionId).SendAsync("ReceiveMessage", senderId, receiverId, message);
         }
-    }
+    } */
+
+
+
+
+
     /*     private static ConcurrentDictionary<string, string> _connections = new ConcurrentDictionary<string, string>();
      */
     /*     public async Task SendMessage(long senderId, long receiverId, string message)
