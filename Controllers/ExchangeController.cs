@@ -81,11 +81,11 @@ namespace PROJECTALTERAPI.Controllers
             }
             return Ok(ExchangeNotificationDto);
         }
-        [HttpPost("AcceptExchange")]
-        public IActionResult AcceptExchange()
+        [HttpPost("AcceptExchange/{exchangeId}")]
+        public IActionResult AcceptExchange(long exchangeId)
         {
             var user = GetCurrentUser();
-            var exchange = _context.Exchanges.FirstOrDefault(e => e.ExchangeId == user.UserId);
+            var exchange = _context.Exchanges.FirstOrDefault(e => e.ExchangeId == exchangeId);
             if (exchange != null)
             {
                 exchange.Statues = "accepted";
@@ -97,11 +97,11 @@ namespace PROJECTALTERAPI.Controllers
                 return NotFound();
             }
         }
-        [HttpPost("RefuseExchange")]
-        public IActionResult RefuseExchange()
+        [HttpPost("RefuseExchange/{exchangeId}")]
+        public IActionResult RefuseExchange(long exchangeId)
         {
             var user = GetCurrentUser();
-            var exchange = _context.Exchanges.FirstOrDefault(e => e.ExchangeId == user.UserId);
+            var exchange = _context.Exchanges.FirstOrDefault(e => e.ExchangeId == exchangeId);
             if (exchange != null)
             {
                 exchange.Statues = "refused";
@@ -113,29 +113,40 @@ namespace PROJECTALTERAPI.Controllers
                 return NotFound();
             }
         }
-        [HttpGet("GetUsersExchanges")]
-        public IActionResult ExchangeNotification2()
+        [HttpGet("GetUsersExchanges/{id}")]
+        public IActionResult GetUsersExchanges(long id)
         {
-            var user = GetCurrentUser();
-            var exchanges = _context.Exchanges.Where(e => (e.ReciverId == user.UserId || e.SenderId == user.UserId) && e.Statues == "accepted").ToList();
-            var ExchangeNotificationDto = new List<ExchangeNotificationDto>();
+            var exchanges = _context.Exchanges
+                .Where(e => (e.ReciverId == id || e.SenderId == id) && e.Statues == "accepted")
+                .ToList();
+
+            var users = new List<UserDto>();
+
             foreach (var exchange in exchanges)
             {
                 var sender = _context.Users.FirstOrDefault(u => u.UserId == exchange.SenderId);
-                var skill = _context.Skills.FirstOrDefault(s => s.SkillId == exchange.SkillReceiveId);
-                ExchangeNotificationDto.Add(new ExchangeNotificationDto
+                var recipient = _context.Users.FirstOrDefault(u => u.UserId == exchange.ReciverId);
+
+                if (sender != null && sender.UserId != id) // Exclude the user with the same ID as the parameter
                 {
-                    ExchangeId = exchange.ExchangeId,
-                    ReciverId = exchange.ReciverId,
-                    SenderId = exchange.SenderId,
-                    SkillReceiveId = exchange.SkillReceiveId,
-                    Statues = exchange.Statues,
-                    senderFirstName = sender.FirstName,
-                    senderLastName = sender.LastName,
-                    senderUserName = sender.Username
-                });
+                    users.Add(new UserDto
+                    {
+                        FirstName = sender.FirstName,
+                        LastName = sender.LastName,
+                        Username = sender.Username
+                    });
+                }
+                if (recipient != null && recipient.UserId != id) // Exclude the user with the same ID as the parameter
+                {
+                    users.Add(new UserDto
+                    {
+                        FirstName = recipient.FirstName,
+                        LastName = recipient.LastName,
+                        Username = recipient.Username
+                    });
+                }
             }
-            return Ok(ExchangeNotificationDto);
+            return Ok(users);
         }
         private string Generate(User user)
         {
