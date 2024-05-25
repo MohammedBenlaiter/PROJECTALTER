@@ -121,7 +121,7 @@ namespace PROJECTALTERAPI.Controllers
                 .ToList();
 
             var users = new List<UserDto>();
-            //
+            // //
             foreach (var exchange in exchanges)
             {
                 var sender = _context.Users.FirstOrDefault(u => u.UserId == exchange.SenderId);
