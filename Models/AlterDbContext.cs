@@ -220,6 +220,9 @@ public partial class AlterDbContext : DbContext
             entity.Property(e => e.OfferInfo).HasColumnName("offer_info");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.RequestId).HasColumnName("request_id");
+            entity.Property(e => e.Status)
+                .HasColumnType("character varying")
+                .HasColumnName("status");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.Request).WithMany(p => p.Offers)

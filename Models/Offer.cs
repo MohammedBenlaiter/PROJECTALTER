@@ -17,6 +17,8 @@ public partial class Offer
 
     public long Price { get; set; }
 
+    public string Status { get; set; } = null!;
+
     public virtual Request Request { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
