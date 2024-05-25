@@ -57,27 +57,30 @@ namespace PROJECTALTERAPI.Controllers
 
             return Ok(dto);
         }
-        [HttpGet("ExchangeNotification")]
-        public IActionResult ExchangeNotification()
+        [HttpGet("ExchangeNotification/{id}")]
+        public IActionResult ExchangeNotification(long id)
         {
-            var user = GetCurrentUser();
-            var exchanges = _context.Exchanges.Where(e => e.ReciverId == user.UserId && e.Statues == "sended").ToList();
+            //var user = GetCurrentUser();
+            var exchanges = _context.Exchanges.Where(e => e.ReciverId == id && e.Statues == "sended").ToList();
             var ExchangeNotificationDto = new List<ExchangeNotificationDto>();
             foreach (var exchange in exchanges)
             {
                 var sender = _context.Users.FirstOrDefault(u => u.UserId == exchange.SenderId);
                 var skill = _context.Skills.FirstOrDefault(s => s.SkillId == exchange.SkillReceiveId);
-                ExchangeNotificationDto.Add(new ExchangeNotificationDto
+                if (sender != null) // Add null check for sender
                 {
-                    ExchangeId = exchange.ExchangeId,
-                    ReciverId = exchange.ReciverId,
-                    SenderId = exchange.SenderId,
-                    SkillReceiveId = exchange.SkillReceiveId,
-                    Statues = exchange.Statues,
-                    senderFirstName = sender.FirstName,
-                    senderLastName = sender.LastName,
-                    senderUserName = sender.Username
-                });
+                    ExchangeNotificationDto.Add(new ExchangeNotificationDto
+                    {
+                        ExchangeId = exchange.ExchangeId,
+                        ReciverId = exchange.ReciverId,
+                        SenderId = exchange.SenderId,
+                        SkillReceiveId = exchange.SkillReceiveId,
+                        Statues = exchange.Statues,
+                        senderFirstName = sender.FirstName,
+                        senderLastName = sender.LastName,
+                        senderUserName = sender.Username
+                    });
+                }
             }
             return Ok(ExchangeNotificationDto);
         }
@@ -117,17 +120,18 @@ namespace PROJECTALTERAPI.Controllers
         public IActionResult GetUsersExchanges(long id)
         {
             var exchanges = _context.Exchanges
-                .Where(e => (e.ReciverId == id || e.SenderId == id) && e.Statues == "accepted")
-                .ToList();
+            .Where(e => (e.ReciverId == id || e.SenderId == id) && e.Statues == "accepted")
+            .ToList();
 
             var users = new List<UserDto>();
-            // //
+            var userIds = new HashSet<long>(); // To keep track of unique user IDs
+
             foreach (var exchange in exchanges)
             {
                 var sender = _context.Users.FirstOrDefault(u => u.UserId == exchange.SenderId);
                 var recipient = _context.Users.FirstOrDefault(u => u.UserId == exchange.ReciverId);
 
-                if (sender != null && sender.UserId != id) // Exclude the user with the same ID as the parameter
+                if (sender != null && sender.UserId != id && !userIds.Contains(sender.UserId))
                 {
                     users.Add(new UserDto
                     {
@@ -135,8 +139,9 @@ namespace PROJECTALTERAPI.Controllers
                         LastName = sender.LastName,
                         Username = sender.Username
                     });
+                    userIds.Add(sender.UserId);
                 }
-                if (recipient != null && recipient.UserId != id) // Exclude the user with the same ID as the parameter
+                if (recipient != null && recipient.UserId != id && !userIds.Contains(recipient.UserId))
                 {
                     users.Add(new UserDto
                     {
@@ -144,6 +149,7 @@ namespace PROJECTALTERAPI.Controllers
                         LastName = recipient.LastName,
                         Username = recipient.Username
                     });
+                    userIds.Add(recipient.UserId);
                 }
             }
             return Ok(users);
