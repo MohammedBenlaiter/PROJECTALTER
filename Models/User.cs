@@ -41,8 +41,6 @@ public partial class User
 
     public virtual ICollection<Skill> Skills { get; set; } = new List<Skill>();
 
-    public virtual ICollection<Token> Tokens { get; set; } = new List<Token>();
-
     public virtual ICollection<Topic> Topics { get; set; } = new List<Topic>();
 
     public virtual ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();

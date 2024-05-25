@@ -17,8 +17,6 @@ public partial class AlterDbContext : DbContext
 
     public virtual DbSet<Certification> Certifications { get; set; }
 
-    public virtual DbSet<Date> Dates { get; set; }
-
     public virtual DbSet<Email> Emails { get; set; }
 
     public virtual DbSet<Exchange> Exchanges { get; set; }
@@ -38,8 +36,6 @@ public partial class AlterDbContext : DbContext
     public virtual DbSet<Request> Requests { get; set; }
 
     public virtual DbSet<Skill> Skills { get; set; }
-
-    public virtual DbSet<Token> Tokens { get; set; }
 
     public virtual DbSet<Topic> Topics { get; set; }
 
@@ -70,25 +66,6 @@ public partial class AlterDbContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("user_id");
-        });
-
-        modelBuilder.Entity<Date>(entity =>
-        {
-            entity.HasKey(e => e.DateId).HasName("date_pkey");
-
-            entity.ToTable("date");
-
-            entity.Property(e => e.DateId)
-                .UseIdentityAlwaysColumn()
-                .HasIdentityOptions(1L, null, 0L, null, null, null)
-                .HasColumnName("date_id");
-            entity.Property(e => e.DateInfo).HasColumnName("date_info");
-            entity.Property(e => e.ExchangeId).HasColumnName("exchange_id");
-
-            entity.HasOne(d => d.Exchange).WithMany(p => p.Dates)
-                .HasForeignKey(d => d.ExchangeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("exchange_id");
         });
 
         modelBuilder.Entity<Email>(entity =>
@@ -124,7 +101,6 @@ public partial class AlterDbContext : DbContext
             entity.Property(e => e.ReciverId).HasColumnName("reciver_id");
             entity.Property(e => e.SenderId).HasColumnName("sender_id");
             entity.Property(e => e.SkillReceiveId).HasColumnName("skill_receive_id");
-            entity.Property(e => e.SkillSendId).HasColumnName("skill_send_id");
             entity.Property(e => e.Statues)
                 .HasColumnType("character varying")
                 .HasColumnName("statues");
@@ -139,15 +115,10 @@ public partial class AlterDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("sender_id");
 
-            entity.HasOne(d => d.SkillReceive).WithMany(p => p.ExchangeSkillReceives)
+            entity.HasOne(d => d.SkillReceive).WithMany(p => p.Exchanges)
                 .HasForeignKey(d => d.SkillReceiveId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("skill_receive_id");
-
-            entity.HasOne(d => d.SkillSend).WithMany(p => p.ExchangeSkillSends)
-                .HasForeignKey(d => d.SkillSendId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("skill_send_id");
         });
 
         modelBuilder.Entity<Feedback>(entity =>
@@ -330,26 +301,6 @@ public partial class AlterDbContext : DbContext
             entity.Property(e => e.YearsOfExperience).HasColumnName("years_of_experience");
 
             entity.HasOne(d => d.User).WithMany(p => p.Skills)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("user_id");
-        });
-
-        modelBuilder.Entity<Token>(entity =>
-        {
-            entity.HasKey(e => e.TokenId).HasName("token_pkey");
-
-            entity.ToTable("token");
-
-            entity.Property(e => e.TokenId)
-                .ValueGeneratedNever()
-                .HasColumnName("token_id");
-            entity.Property(e => e.Token1)
-                .HasColumnType("character varying")
-                .HasColumnName("token");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Tokens)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("user_id");

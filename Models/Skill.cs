@@ -19,9 +19,7 @@ public partial class Skill
 
     public string SkillType { get; set; } = null!;
 
-    public virtual ICollection<Exchange> ExchangeSkillReceives { get; set; } = new List<Exchange>();
-
-    public virtual ICollection<Exchange> ExchangeSkillSends { get; set; } = new List<Exchange>();
+    public virtual ICollection<Exchange> Exchanges { get; set; } = new List<Exchange>();
 
     public virtual ICollection<Language> Languages { get; set; } = new List<Language>();
 

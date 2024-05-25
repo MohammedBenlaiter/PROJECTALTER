@@ -15,7 +15,7 @@ namespace PROJECTALTERAPI.Controllers
         private IConfiguration _configuration;
         private readonly AlterDbContext _context;
 
-        public SkillController(AlterDbContext context , IConfiguration configuration)
+        public SkillController(AlterDbContext context, IConfiguration configuration)
         {
             _context = context;
             _configuration = configuration;
@@ -62,14 +62,14 @@ namespace PROJECTALTERAPI.Controllers
             var language = new Language
             {
                 SkillId = skillDto.SkillId,
-                LanguageName = skillDto.LanguageName
+                LanguageName = skillDto?.LanguageName ?? string.Empty
             };
             _context.Languages.Add(language);
             _context.SaveChanges();
             var link = new Link
             {
                 SkillId = skillDto.SkillId,
-                LinkInformation = skillDto.LinkInformation
+                LinkInformation = skillDto?.LinkInformation ?? string.Empty
             };
             _context.Links.Add(link);
             _context.SaveChanges();
@@ -203,6 +203,26 @@ namespace PROJECTALTERAPI.Controllers
                 return NotFound();
             }
             return Ok(skills);
+        }
+        [HttpGet("getSkillById/{id}")]
+        public async Task<ActionResult<Skill>> GetSkill(long id)
+        {
+            var skill = await _context.Skills.FindAsync(id);
+            if (skill == null)
+            {
+                return NotFound();
+            }
+            var SkillDto = new SkillDto
+            {
+                SkillId = skill.SkillId,
+                UserId = skill.UserId,
+                SkillName = skill.SkillName,
+                SkillDescription = skill.SkillDescription,
+                YearsOfExperience = skill.YearsOfExperience,
+                SkillLevel = skill.SkillLevel,
+                SkillType = skill.SkillType
+            };
+            return Ok(SkillDto);
         }
         [HttpGet("getSkills")]
         public async Task<ActionResult<Skill>> GetSkills()

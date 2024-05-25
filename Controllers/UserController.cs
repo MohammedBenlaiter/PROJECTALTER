@@ -194,13 +194,13 @@ namespace PROJECTALTERAPI.Controllers
         [HttpGet("getUserBySkillId/{id}")]
         public IActionResult GetUserBySkillId(long id)
         {
-            var users = _db.Users.FirstOrDefault(u => u.Skills.Any(s => s.SkillId == id));
+            var user = _db.Users.FirstOrDefault(u => u.Skills.Any(s => s.SkillId == id));
             //  var user = _db.Users.Where(u => u.Skills.Any(s => s.SkillId == id)).ToList();
             UserDto dto = new UserDto
             {
-                FirstName = users.FirstName,
-                LastName = users.LastName,
-                Username = users.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.Username,
                 Password = "mat7awesch tafhem",
             };
             return Ok(dto);
