@@ -16,14 +16,11 @@ namespace PROJECTALTERAPI.Controllers
     {
         private readonly AlterDbContext _context;
         private readonly IHubContext<ChatHub> _hubContext;
-        private IConfiguration _configuration;
 
-
-        public ExchangeController(AlterDbContext context, IHubContext<ChatHub> hubContext, IConfiguration configuration)
+        public ExchangeController(AlterDbContext context, IHubContext<ChatHub> hubContext)
         {
             _context = context;
             _hubContext = hubContext;
-            _configuration = configuration;
         }
 
         [HttpPost("CreateExchange/{id_rec}/{id_s_rec}")]
@@ -103,7 +100,6 @@ namespace PROJECTALTERAPI.Controllers
         [HttpPost("RefuseExchange/{exchangeId}")]
         public IActionResult RefuseExchange(long exchangeId)
         {
-            //var user = GetCurrentUser();
             var exchange = _context.Exchanges.FirstOrDefault(e => e.ExchangeId == exchangeId);
             if (exchange != null)
             {
@@ -116,11 +112,12 @@ namespace PROJECTALTERAPI.Controllers
                 return NotFound();
             }
         }
-        [HttpGet("GetUsersExchanges/{id}")]
-        public IActionResult GetUsersExchanges(long id)
+        [HttpGet("GetUsersExchanges")]
+        public IActionResult GetUsersExchanges()
         {
+            var user = GetCurrentUser();
             var exchanges = _context.Exchanges
-            .Where(e => (e.ReciverId == id || e.SenderId == id) && e.Statues == "accepted")
+            .Where(e => (e.ReciverId == user.UserId || e.SenderId == user.UserId) && e.Statues == "accepted")
             .ToList();
 
             var users = new List<UserDto>();
@@ -131,7 +128,7 @@ namespace PROJECTALTERAPI.Controllers
                 var sender = _context.Users.FirstOrDefault(u => u.UserId == exchange.SenderId);
                 var recipient = _context.Users.FirstOrDefault(u => u.UserId == exchange.ReciverId);
 
-                if (sender != null && sender.UserId != id && !userIds.Contains(sender.UserId))
+                if (sender != null && sender.UserId != user.UserId && !userIds.Contains(sender.UserId))
                 {
                     users.Add(new UserDto
                     {
@@ -141,7 +138,7 @@ namespace PROJECTALTERAPI.Controllers
                     });
                     userIds.Add(sender.UserId);
                 }
-                if (recipient != null && recipient.UserId != id && !userIds.Contains(recipient.UserId))
+                if (recipient != null && recipient.UserId != user.UserId && !userIds.Contains(recipient.UserId))
                 {
                     users.Add(new UserDto
                     {
@@ -153,34 +150,6 @@ namespace PROJECTALTERAPI.Controllers
                 }
             }
             return Ok(users);
-        }
-        private string Generate(User user)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var claims = new[] {
-                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                new Claim(ClaimTypes.Name, user.Username)
-            };
-            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
-             _configuration["Jwt:Audience"],
-              claims,
-               expires: DateTime.Now.AddHours(30),
-                signingCredentials: credentials);
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-        private User Auth(LoginDto dto)
-        {
-            var user = _context.Users.FirstOrDefault(u => u.Username == dto.Username);
-            var passwordHasher = new PasswordHasher<User>();
-            if (user != null)
-            {
-                if (passwordHasher.VerifyHashedPassword(user, user.Password, dto.Password) == PasswordVerificationResult.Success)
-                {
-                    return user;
-                }
-            }
-            return null!;
         }
         private User GetCurrentUser()
         {
