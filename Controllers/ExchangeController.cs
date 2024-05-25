@@ -84,7 +84,7 @@ namespace PROJECTALTERAPI.Controllers
         [HttpPost("AcceptExchange/{exchangeId}")]
         public IActionResult AcceptExchange(long exchangeId)
         {
-            var user = GetCurrentUser();
+            //var user = GetCurrentUser();
             var exchange = _context.Exchanges.FirstOrDefault(e => e.ExchangeId == exchangeId);
             if (exchange != null)
             {
@@ -100,7 +100,7 @@ namespace PROJECTALTERAPI.Controllers
         [HttpPost("RefuseExchange/{exchangeId}")]
         public IActionResult RefuseExchange(long exchangeId)
         {
-            var user = GetCurrentUser();
+            //var user = GetCurrentUser();
             var exchange = _context.Exchanges.FirstOrDefault(e => e.ExchangeId == exchangeId);
             if (exchange != null)
             {
