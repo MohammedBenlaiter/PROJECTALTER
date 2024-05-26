@@ -33,13 +33,13 @@ public class OfferController : ControllerBase
         }
         return null!; // Add a return statement for the case when Identity is null
     }
-    [HttpPost("CreateOffer/{id}")]
-    public IActionResult CreateSkillListining(OfferDto offerDto, long id)
+    [HttpPost("CreateOffer")]
+    public IActionResult CreateSkillListining(OfferDto offerDto)
     {
-        //var userId = GetCurrentUser();
+        var userId = GetCurrentUser();
         var offer = new Offer
         {
-            UserId = id,
+            UserId = userId.UserId,
             RequestId = offerDto.RequestId,
             OfferInfo = offerDto.OfferInfo,
             Deadline = offerDto.Deadline,
