@@ -19,13 +19,13 @@ namespace PROJECTALTERAPI
             _context = context;
             _configuration = configuration;
         }
-        [HttpPost("creatRequest/{id}")]
-        public async Task<IActionResult> AddRequest(long id, RequestDto requestDto)
+        [HttpPost("creatRequest")]
+        public async Task<IActionResult> AddRequest(RequestDto requestDto)
         {
-            //var userId = GetCurrentUser();
+            var userId = GetCurrentUser();
             var request = new Request
             {
-                UserId = id,
+                UserId = userId.UserId,
                 RequestTitle = requestDto.RequestTitle,
                 RequestDescription = requestDto.RequestDescription,
                 Deadline = requestDto.Deadline,
@@ -44,12 +44,12 @@ namespace PROJECTALTERAPI
             }
             return Ok(requests);
         }
-        [HttpGet("getRequest/{id}")]
-        public async Task<IActionResult> GetRequest(long id)
+        [HttpGet("getRequest")]
+        public async Task<IActionResult> GetRequest()
         {
-            //var userId = GetCurrentUser();
-            var request = await _context.Requests.FindAsync(id);
-            var rq = _context.Requests.Where(s => s.UserId == id);
+            var userId = GetCurrentUser();
+            var request = await _context.Requests.FindAsync(userId.UserId);
+            var rq = _context.Requests.Where(s => s.UserId == userId.UserId);
             if (rq == null)
             {
                 return NotFound();

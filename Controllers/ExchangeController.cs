@@ -54,11 +54,11 @@ namespace PROJECTALTERAPI.Controllers
 
             return Ok(dto);
         }
-        [HttpGet("ExchangeNotification/{id}")]
-        public IActionResult ExchangeNotification(long id)
+        [HttpGet("ExchangeNotification")]
+        public IActionResult ExchangeNotification()
         {
-            //var user = GetCurrentUser();
-            var exchanges = _context.Exchanges.Where(e => e.ReciverId == id && e.Statues == "sended").ToList();
+            var user = GetCurrentUser();
+            var exchanges = _context.Exchanges.Where(e => e.ReciverId == user.UserId && e.Statues == "sended").ToList();
             var ExchangeNotificationDto = new List<ExchangeNotificationDto>();
             foreach (var exchange in exchanges)
             {
