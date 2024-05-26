@@ -3832,11 +3832,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/PROJECTALTERAPI.csproj",
+      "projectUniqueName": "/home/ash/Desktop/PROJECTALTER-26/PROJECTALTER/PROJECTALTERAPI.csproj",
       "projectName": "PROJECTALTERAPI",
-      "projectPath": "/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/PROJECTALTERAPI.csproj",
+      "projectPath": "/home/ash/Desktop/PROJECTALTER-26/PROJECTALTER/PROJECTALTERAPI.csproj",
       "packagesPath": "/home/ash/.nuget/packages/",
-      "outputPath": "/home/ash/Desktop/new PROJECTALTER/PROJECTALTER/obj/",
+      "outputPath": "/home/ash/Desktop/PROJECTALTER-26/PROJECTALTER/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/ash/.nuget/NuGet/NuGet.Config"

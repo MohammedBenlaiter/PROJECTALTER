@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore; // Add this using direc
 using PROJECTALTERAPI.Hubs;
 using Microsoft.IdentityModel.Tokens;
 using PROJECTALTERAPI;
-
+// change
 internal class Program
 {
     private static void Main(string[] args)
