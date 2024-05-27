@@ -8,6 +8,11 @@ public sealed class ChatHub : Hub
     {
         await Clients.All.SendAsync("ReceiveMessage", "admin", $"{conn.Username} has joined the chat");
     }
+    public async Task ReceiveMessage(User sender, User receiver, string message)
+    {
+        await Clients.All.SendAsync("ReceiveMessage", sender.Username, receiver.Username, message);
+    }
+
     public async Task JoinSpecificChatRoom(User conn)
     {
         await Groups.AddToGroupAsync(Context.ConnectionId, conn.Username);
