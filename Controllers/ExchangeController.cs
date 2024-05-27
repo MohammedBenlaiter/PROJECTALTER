@@ -112,6 +112,7 @@ namespace PROJECTALTERAPI.Controllers
                 return NotFound();
             }
         }
+
         [HttpGet("GetUsersExchanges")]
         public IActionResult GetUsersExchanges()
         {
@@ -132,6 +133,7 @@ namespace PROJECTALTERAPI.Controllers
                 {
                     users.Add(new UserDto
                     {
+                        UserId = sender.UserId,
                         FirstName = sender.FirstName,
                         LastName = sender.LastName,
                         Username = sender.Username
@@ -142,6 +144,7 @@ namespace PROJECTALTERAPI.Controllers
                 {
                     users.Add(new UserDto
                     {
+                        UserId = recipient.UserId,
                         FirstName = recipient.FirstName,
                         LastName = recipient.LastName,
                         Username = recipient.Username
