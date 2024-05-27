@@ -17,7 +17,7 @@ namespace PROJECTALTERAPI
 
             _hubContext = hubContext;
         }
-        [HttpPost("send/{id_sender}/{id_receiver}")]
+        [HttpPost("send/{id_receiver}")]
         public async Task<IActionResult> PostMessage(MessageDto message, long id_receiver)
         {
             var user = GetCurrentUser();
@@ -42,7 +42,7 @@ namespace PROJECTALTERAPI
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("GetAllMessages/{id_sender}/{id_receiver}")]
+        [HttpGet("GetAllMessages/{id_receiver}")]
         public async Task<IActionResult> GetAllMessages(long id_receiver)
         {
             var user = GetCurrentUser();
