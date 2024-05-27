@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PROJECTALTERAPI.Dtos;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace PROJECTALTERAPI
 {
@@ -92,44 +93,12 @@ namespace PROJECTALTERAPI
             _context.SaveChanges();
             return Ok(offer);
         }
-        [HttpGet("GetUsersOffers{userId}")]
-        public IActionResult GetUsersExchanges(long userId)
-        {
-            //var user = GetCurrentUser();
-            var exchanges = _context.Exchanges
-            .Where(e => (e.ReciverId == userId || e.SenderId == userId) && e.Statues == "Accepted")
-            .ToList();
-
-            var users = new List<UserDto>();
-            var userIds = new HashSet<long>(); // To keep track of unique user IDs
-
-            foreach (var exchange in exchanges)
-            {
-                var sender = _context.Users.FirstOrDefault(u => u.UserId == exchange.SenderId);
-                var recipient = _context.Users.FirstOrDefault(u => u.UserId == exchange.ReciverId);
-
-                if (sender != null && sender.UserId != userId && !userIds.Contains(sender.UserId))
+        /*         [HttpGet("GetUsersOffers/{userId}")]
+                public IActionResult GetUsersOffers(long userId)
                 {
-                    users.Add(new UserDto
-                    {
-                        FirstName = sender.FirstName,
-                        LastName = sender.LastName,
-                        Username = sender.Username
-                    });
-                    userIds.Add(sender.UserId);
-                }
-                if (recipient != null && recipient.UserId != userId && !userIds.Contains(recipient.UserId))
-                {
-                    users.Add(new UserDto
-                    {
-                        FirstName = recipient.FirstName,
-                        LastName = recipient.LastName,
-                        Username = recipient.Username
-                    });
-                    userIds.Add(recipient.UserId);
-                }
-            }
-            return Ok(users);
-        }
+                    //var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+                    var requests = _context.Requests.Where(o => o.UserId == userId).ToList();
+                    return Ok(requests);
+                } */
     }
 }
