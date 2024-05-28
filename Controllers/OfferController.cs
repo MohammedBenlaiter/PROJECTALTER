@@ -93,17 +93,53 @@ namespace PROJECTALTERAPI
             _context.SaveChanges();
             return Ok(offer);
         }
+        /*         [HttpGet("GetUsersOffers/{userId}")]
+                public IActionResult GetUsersOffers(long userId)
+                {
+                    var userOffers = _context.Users
+                        .Where(u => u.UserId == userId)
+                        .Include(u => u.Requests)
+                            .ThenInclude(r => r.Offers)
+                        .Where(u => u.Requests.Any(r => r.Offers.Any(o => o.Status == "Accepted")))
+                        .Select(u => new
+                        {
+                            UserId = u.UserId,
+                            Username = u.Username,
+                            Offers = u.Requests.SelectMany(r => r.Offers.Where(o => o.Status == "Accepted"))
+                        })
+                        .ToList();
+
+                    return Ok(userOffers);
+                } */
         [HttpGet("GetUsersOffers/{userId}")]
         public IActionResult GetUsersOffers(long userId)
         {
-            //var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
-            var requests = _context.Requests.Where(o => o.UserId == userId).ToList();
-            var offers = new List<Offer>();
-            foreach (var request in requests)
+            var userOffers = _context.Users
+            .Where(u => u.UserId == userId)
+            .Include(u => u.Requests)
+                .ThenInclude(r => r.Offers)
+            .Where(u => u.Requests.Any(r => r.Offers.Any(o => o.Status == "Accepted")))
+            .SelectMany(u => u.Requests.SelectMany(r => r.Offers.Where(o => o.Status == "Accepted")))
+            .Include(o => o.User)
+            .Select(o => new
             {
-                offers.AddRange(_context.Offers.Where(o => o.RequestId == request.RequestId).ToList());
-            }
-            return Ok(offers);
+                UserId = o.User.UserId,
+                Username = o.User.Username,
+                OfferId = o.OfferId,
+                RequestId = o.RequestId,
+                OfferInfo = o.OfferInfo,
+                Deadline = o.Deadline,
+                Price = o.Price,
+                Status = o.Status
+            })
+            .ToList();
+            var userDtoList = userOffers.Select(o => new UserDto
+            {
+                UserId = o.UserId,
+                Username = o.Username
+            }).ToList();
+
+            return Ok(userDtoList);
         }
     }
 }
