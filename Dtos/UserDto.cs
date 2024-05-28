@@ -1,4 +1,5 @@
-﻿namespace PROJECTALTERAPI.Dtos;
+﻿
+namespace PROJECTALTERAPI.Dtos;
 
 public record class UserDto
 {

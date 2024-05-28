@@ -208,19 +208,24 @@ namespace PROJECTALTERAPI.Controllers
         [HttpGet("GetUserById/{user_id}")]
         public IActionResult GetUserById(long user_id)
         {
-            var user = _db.Users.FirstOrDefault(u => u.UserId == user_id);
+            var user = _db.Users.Include(u => u.Skills).FirstOrDefault(u => u.UserId == user_id);
             if (user == null)
             {
                 return NotFound($"User {user_id} does not exist");
             }
-            var user2 = new UserDto
+            var User = new UserNotificationDto
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Username = user.Username,
                 Password = user.Password,
+                Skills = user.Skills.Select(s => new SkillDto
+                {
+                    SkillId = s.SkillId,
+                    SkillName = s.SkillName
+                }).ToList()
             };
-            return Ok(user2);
+            return Ok(User);
         }
 
         [HttpPost("checkEmail")]
