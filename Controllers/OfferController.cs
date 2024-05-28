@@ -93,12 +93,17 @@ namespace PROJECTALTERAPI
             _context.SaveChanges();
             return Ok(offer);
         }
-        /*         [HttpGet("GetUsersOffers/{userId}")]
-                public IActionResult GetUsersOffers(long userId)
-                {
-                    //var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
-                    var requests = _context.Requests.Where(o => o.UserId == userId).ToList();
-                    return Ok(requests);
-                } */
+        [HttpGet("GetUsersOffers/{userId}")]
+        public IActionResult GetUsersOffers(long userId)
+        {
+            //var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            var requests = _context.Requests.Where(o => o.UserId == userId).ToList();
+            var offers = new List<Offer>();
+            foreach (var request in requests)
+            {
+                offers.AddRange(_context.Offers.Where(o => o.RequestId == request.RequestId).ToList());
+            }
+            return Ok(offers);
+        }
     }
 }
