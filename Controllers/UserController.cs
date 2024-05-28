@@ -205,6 +205,24 @@ namespace PROJECTALTERAPI.Controllers
             };
             return Ok(dto);
         }
+        [HttpGet("GetUserById/{user_id}")]
+        public IActionResult GetUserById(long user_id)
+        {
+            var user = _db.Users.FirstOrDefault(u => u.UserId == user_id);
+            if (user == null)
+            {
+                return NotFound($"User {user_id} does not exist");
+            }
+            var user2 = new UserDto
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.Username,
+                Password = user.Password,
+            };
+            return Ok(user2);
+        }
+
         [HttpPost("checkEmail")]
         public IActionResult CheckEmailAvailability(EmailDto dto)
         {

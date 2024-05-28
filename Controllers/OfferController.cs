@@ -141,5 +141,47 @@ namespace PROJECTALTERAPI
 
             return Ok(userDtoList);
         }
+        [HttpGet("GetUsersOffers2/{userId}")]
+        public IActionResult GetUsersOffers2(long userId)
+        {
+            var userOffers = _context.Users
+            .Where(u => u.UserId == userId)
+            .Include(u => u.Offers)
+                .ThenInclude(o => o.Request)
+                .ThenInclude(r => r.User)
+            .Where(u => u.Offers.Any(o => o.Status == "Accepted"))
+            .SelectMany(u => u.Offers.Where(o => o.Status == "Accepted"))
+            .Include(o => o.User)
+            .Select(o => new
+            {
+                UserId = o.User.UserId,
+                Username = o.User.Username,
+                OfferId = o.OfferId,
+                RequestId = o.Request.RequestId,
+                OfferInfo = o.OfferInfo,
+                Deadline = o.Deadline,
+                Price = o.Price,
+                Status = o.Status
+            })
+            .ToList();
+            /*             var userDtoList = userOffers.Select(o => new UserDto
+                        {
+                            UserId = o.UserId,
+                            Username = o.Username
+                        }).ToList(); */
+            var requestIdList = userOffers.Select(o => o.RequestId).ToList();
+            var requests = _context.Requests.Where(r => requestIdList.Contains(r.RequestId)).ToList();
+
+            var userIds = requests.Select(r => r.UserId).ToList();
+            var users = _context.Users
+                .Where(u => userIds.Contains(u.UserId))
+                .Select(u => new
+                {
+                    UserId = u.UserId,
+                    Username = u.Username
+                })
+                .ToList();
+            return Ok(users);
+        }
     }
 }
