@@ -38,6 +38,23 @@ namespace PROJECTALTERAPI.Controllers
 
             return Ok(users); // Return successful response with users d 
         }
+        [HttpGet("searchUser")]
+        public IActionResult SearchUser(SearchDto searchTerm)
+        {
+            var users = _db.Users.Where(u => u.FirstName.Contains(searchTerm.Query) || u.LastName.Contains(searchTerm.Query) || u.Username.Contains(searchTerm.Query)).ToList();
+            if (users.Count == 0)
+            {
+                return NotFound("No users found");
+            }
+            var userDtos = users.Select(u => new UserDto
+            {
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                Username = u.Username,
+                Password = u.Password
+            }).ToList();
+            return Ok(userDtos);
+        }
         [HttpGet("getUser")]
         public IActionResult GetUser()
         {
