@@ -195,15 +195,18 @@ namespace PROJECTALTERAPI.Controllers
         public IActionResult GetUserBySkillId(long id)
         {
             var user = _db.Users.FirstOrDefault(u => u.Skills.Any(s => s.SkillId == id));
-            //  var user = _db.Users.Where(u => u.Skills.Any(s => s.SkillId == id)).ToList();
-            UserDto dto = new UserDto
+            if (user != null)
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Username = user.Username,
-                Password = "mat7awesch tafhem",
-            };
-            return Ok(dto);
+                UserDto dto = new UserDto
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Username = user.Username,
+                    Password = "mat7awesch tafhem",
+                };
+                return Ok(dto);
+            }
+            return NotFound("User not found");
         }
         [HttpGet("GetUserById/{user_id}")]
         public IActionResult GetUserById(long user_id)
