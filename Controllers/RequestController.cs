@@ -80,6 +80,24 @@ namespace PROJECTALTERAPI
             };
             return Ok(userdto);
         }
+        [HttpGet("getUserRequests/{id}")]
+        public async Task<IActionResult> GetUserRequests(long id)
+        {
+            var requests = await _context.Requests.Where(r => r.UserId == id).ToListAsync();
+            if (requests == null)
+            {
+                return NotFound();
+            }
+            var requestDtos = requests.Select(r => new RequestDto
+            {
+                RequestId = r.RequestId,
+                UserId = r.UserId,
+                RequestTitle = r.RequestTitle,
+                RequestDescription = r.RequestDescription,
+                Deadline = r.Deadline
+            }).ToList();
+            return Ok(requestDtos);
+        }
         private User GetCurrentUser()
         {
             var Identity = HttpContext.User.Identity as ClaimsIdentity;

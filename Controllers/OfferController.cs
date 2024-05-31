@@ -56,6 +56,19 @@ namespace PROJECTALTERAPI
             // Return the created Skill object
             return Ok(offerDto);
         }
+        [HttpGet("GetOfferByUser/{userId}")]
+        public async Task<IActionResult> GetOfferByUser(long userId)
+        {
+            var offers = await _context.Offers.Where(o => o.UserId == userId).ToListAsync();
+            if (offers == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(offers);
+            }
+        }
         [HttpGet("GetOffers/{receiver_id}")]
         public async Task<IActionResult> GetOffers(long receiver_id)
         {

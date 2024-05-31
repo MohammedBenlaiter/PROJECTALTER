@@ -224,10 +224,52 @@ namespace PROJECTALTERAPI.Controllers
             };
             return Ok(SkillDto);
         }
-        [HttpGet("getSkills")]
+        [HttpGet("getSkillsByUserId/{userId}")]
+        public async Task<ActionResult<IEnumerable<Skill>>> GetSkillsByUserId(long userId)
+        {
+            var skills = await _context.Skills
+                .Include(s => s.Languages)
+                .Include(s => s.Links)
+                .Where(s => s.UserId == userId)
+                .ToListAsync();
+
+            var skillDto2 = skills.Select(s => new SkillDto2
+            {
+                SkillId = s.SkillId,
+                UserId = s.UserId,
+                SkillName = s.SkillName,
+                SkillDescription = s.SkillDescription,
+                YearsOfExperience = s.YearsOfExperience,
+                SkillLevel = s.SkillLevel,
+                SkillType = s.SkillType,
+                Languages = s.Languages.Select(l => new Language
+                {
+                    LanguageId = l.LanguageId,
+                    LanguageName = l.LanguageName
+                }).ToList(),
+                Links = s.Links.Select(l => new Link
+                {
+                    LinksId = l.LinksId,
+                    LinkInformation = l.LinkInformation
+                }).ToList()
+            });
+
+            return Ok(skillDto2);
+        }
+        [HttpGet("getSkills1")]
         public async Task<ActionResult<Skill>> GetSkills(SkillTypeDto skillType)
         {
             var skills = await _context.Skills.Where(s => s.SkillType == skillType.SkillType).ToListAsync();
+            if (skills == null)
+            {
+                return NotFound();
+            }
+            return Ok(skills);
+        }
+        [HttpGet("getSkills")]
+        public async Task<ActionResult<Skill>> GetSkills()
+        {
+            var skills = await _context.Skills.ToListAsync();
             if (skills == null)
             {
                 return NotFound();

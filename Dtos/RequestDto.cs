@@ -2,6 +2,8 @@
 
 public record class RequestDto
 {
+    public long RequestId { get; set; }
+
     public long UserId { get; set; }
 
     public string RequestTitle { get; set; } = null!;
