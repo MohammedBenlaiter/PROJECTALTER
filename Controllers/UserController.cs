@@ -29,7 +29,19 @@ namespace PROJECTALTERAPI.Controllers
             _db = db;
             _configuration = configuration;
         }
-
+        [HttpPost("AddPicture")]
+        public IActionResult AddPicture([FromBody] byte[] dto)
+        {
+            var id = GetCurrentUser();
+            var user = _db.Users.SingleOrDefault(g => g.UserId == id.UserId);
+            if (user == null)
+            {
+                return NotFound($"User does not exist");
+            }
+            user.Picture = dto;
+            _db.SaveChanges();
+            return Ok(user);
+        }
         [HttpGet("getAllUser")] // Route at method level
         public IActionResult Get()
         {
