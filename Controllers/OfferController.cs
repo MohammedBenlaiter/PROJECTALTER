@@ -35,6 +35,19 @@ namespace PROJECTALTERAPI
             }
             return null!; // Add a return statement for the case when Identity is null
         }
+        [HttpGet("GetUsersWhoOffering/{requestId}")]
+        public async Task<IActionResult> GetUsersWhoOffering(long requestId)
+        {
+            var usersOffering = await _context.Offers
+                .Where(o => o.RequestId == requestId)
+                .Select(o => new UserDto
+                {
+                    UserId = o.UserId,
+                    Username = o.User.Username
+                })
+                .ToListAsync();
+            return Ok(usersOffering);
+        }
         [HttpPost("CreateOffer")]
         public IActionResult CreateSkillListining(OfferDto offerDto)
         {

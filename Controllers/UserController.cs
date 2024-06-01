@@ -20,7 +20,6 @@ namespace PROJECTALTERAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    // ademmm
     public class UserController : ControllerBase
     {
         private IConfiguration _configuration;
