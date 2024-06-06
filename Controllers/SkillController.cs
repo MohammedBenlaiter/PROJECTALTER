@@ -269,12 +269,39 @@ namespace PROJECTALTERAPI.Controllers
         [HttpGet("getSkills")]
         public async Task<ActionResult<Skill>> GetSkills()
         {
-            var skills = await _context.Skills.ToListAsync();
-            if (skills == null)
+            var skillsWithDetails = await _context.Skills
+                        .Include(s => s.Languages)
+                        .Include(s => s.Links)
+                        .Include(s => s.User.Wishlists)
+                        .ToListAsync();
+
+            var skillDetailsDto = skillsWithDetails.Select(s => new SkillDto2
             {
-                return NotFound();
-            }
-            return Ok(skills);
+                SkillId = s.SkillId,
+                UserId = s.UserId,
+                SkillName = s.SkillName,
+                SkillDescription = s.SkillDescription,
+                YearsOfExperience = s.YearsOfExperience,
+                SkillLevel = s.SkillLevel,
+                SkillType = s.SkillType,
+                Languages = s.Languages.Select(l => new Language
+                {
+                    LanguageId = l.LanguageId,
+                    LanguageName = l.LanguageName
+                }).ToList(),
+                Links = s.Links.Select(l => new Link
+                {
+                    LinksId = l.LinksId,
+                    LinkInformation = l.LinkInformation
+                }).ToList(),
+                Wishlists = s.User.Wishlists.Select(w => new Wishlist
+                {
+                    WishlistId = w.WishlistId,
+                    WishlistName = w.WishlistName
+                }).ToList()
+            });
+
+            return Ok(skillDetailsDto);
         }
         [HttpGet("api/users/{userId}")]
         public async Task<IActionResult> UserExists(long userId)

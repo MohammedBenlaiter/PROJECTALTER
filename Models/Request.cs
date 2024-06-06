@@ -15,6 +15,8 @@ public partial class Request
 
     public DateOnly Deadline { get; set; }
 
+    public string? RequestType { get; set; }
+
     public virtual ICollection<Offer> Offers { get; set; } = new List<Offer>();
 
     public virtual User User { get; set; } = null!;

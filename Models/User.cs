@@ -17,8 +17,6 @@ public partial class User
 
     public string Username { get; set; } = null!;
 
-    public List<string>? VerifiedUser { get; set; }
-
     public virtual ICollection<Certification> Certifications { get; set; } = new List<Certification>();
 
     public virtual ICollection<Email> Emails { get; set; } = new List<Email>();
@@ -40,8 +38,6 @@ public partial class User
     public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
 
     public virtual ICollection<Skill> Skills { get; set; } = new List<Skill>();
-
-    public virtual ICollection<Topic> Topics { get; set; } = new List<Topic>();
 
     public virtual ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();
 }

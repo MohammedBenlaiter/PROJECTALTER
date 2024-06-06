@@ -66,6 +66,28 @@ namespace PROJECTALTERAPI.Controllers
                     }).ToList();
                     return Ok(userDtos);
                 } */
+        /*         [HttpGet("searchUser")]
+                public IActionResult SearchUser([FromQuery] string query)
+                {
+                    if (string.IsNullOrEmpty(query))
+                    {
+                        return BadRequest("Query parameter is required.");
+                    }
+
+                    var users = _db.Users.Where(u => u.FirstName.Contains(query) && u.LastName.Contains(query) && u.Username.Contains(query)).ToList();
+                    if (users.Count == 0)
+                    {
+                        return NotFound("No users found");
+                    }
+                    var userDtos = users.Select(u => new UserDto
+                    {
+                        FirstName = u.FirstName,
+                        LastName = u.LastName,
+                        Username = u.Username,
+                        Password = u.Password
+                    }).ToList();
+                    return Ok(userDtos);
+                } */
         [HttpGet("searchUser")]
         public IActionResult SearchUser([FromQuery] string query)
         {
@@ -74,7 +96,7 @@ namespace PROJECTALTERAPI.Controllers
                 return BadRequest("Query parameter is required.");
             }
 
-            var users = _db.Users.Where(u => u.FirstName.Contains(query) && u.LastName.Contains(query) && u.Username.Contains(query)).ToList();
+            var users = _db.Users.Where(u => u.FirstName.Contains(query) || u.LastName.Contains(query) || u.Username.Contains(query)).ToList();
             if (users.Count == 0)
             {
                 return NotFound("No users found");
@@ -103,6 +125,7 @@ namespace PROJECTALTERAPI.Controllers
                 LastName = user.LastName,
                 Username = user.Username,
                 Password = user.Password,
+                Picture = user.Picture
             };
             return Ok(user2);
         }
@@ -153,10 +176,10 @@ namespace PROJECTALTERAPI.Controllers
         [HttpPost("register")]
         public IActionResult Register(UserRegisterDto dto)
         {
-            /* if (_db.Users.Any(u => u.Username == dto.Username))
+            if (_db.Users.Any(u => u.Username == dto.Username))
             {
                 return BadRequest("Username already exists");
-            } */
+            }
             var passwordHasher = new PasswordHasher<User>();
             var user = new User
             {
@@ -174,6 +197,12 @@ namespace PROJECTALTERAPI.Controllers
             };
             _db.Emails.Add(email);
             _db.SaveChanges();
+            if (dto != null)
+            {
+                var token = Generate(user);
+                return Ok(new { token });
+            }
+
             return Ok(dto);
         }
 
@@ -253,6 +282,7 @@ namespace PROJECTALTERAPI.Controllers
                     LastName = user.LastName,
                     Username = user.Username,
                     Password = "mat7awesch tafhem",
+                    Picture = user.Picture
                 };
                 return Ok(dto);
             }

@@ -1,4 +1,4 @@
-﻿namespace PROJECTALTERAPI;
+﻿namespace PROJECTALTERAPI.Dtos;
 
 public record class WishlistDto
 {

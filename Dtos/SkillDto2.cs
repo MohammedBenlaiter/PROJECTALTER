@@ -19,4 +19,6 @@ public record class SkillDto2
     public virtual List<Language> Languages { get; set; } = null!;
 
     public virtual List<Link> Links { get; set; } = null!;
+
+    public virtual List<Wishlist> Wishlists { get; set; } = null!;
 }
