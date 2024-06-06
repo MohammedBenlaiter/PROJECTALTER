@@ -29,17 +29,31 @@ public class WishlistController : ControllerBase
         _context = context;
         _configuration = configuration;
     }
-    [HttpPost("CreateWishlist/{id}")]
-    public async Task<IActionResult> CreateWishlist(WishlistDto wishlistDto, long id)
+    [HttpPost("CreateWishlist")]
+    public async Task<IActionResult> CreateWishlist(WishlistDto wishlistDto)
     {
-        //var userId = GetCurrentUser();
+        var user = GetCurrentUser();
         var wishlist = new Wishlist
         {
-            UserId = id,
+            UserId = user.UserId,
             WishlistName = wishlistDto.WishlistName
         };
         _context.Wishlists.Add(wishlist);
         await _context.SaveChangesAsync();
         return Ok(wishlist);
+    }
+    private User GetCurrentUser()
+    {
+        var Identity = HttpContext.User.Identity as ClaimsIdentity;
+        if (Identity != null)
+        {
+            var userClaim = Identity.Claims;
+            return new User
+            {
+                UserId = Convert.ToInt64(userClaim.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value),
+                Username = userClaim.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value ?? string.Empty
+            };
+        }
+        return null!; // Add a return statement for the case when Identity is null
     }
 }

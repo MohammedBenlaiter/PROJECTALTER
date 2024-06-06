@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PROJECTALTERAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d63f197919e6f9ecbeb0a177f070636d252f1ea1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+351639d83f06e17aa5a03afeccd67dc0b9f10009")]
 [assembly: System.Reflection.AssemblyProductAttribute("PROJECTALTERAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PROJECTALTERAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
