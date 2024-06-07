@@ -140,6 +140,7 @@ namespace PROJECTALTERAPI
         [HttpGet("GetUsersOffers/{userId}")]
         public IActionResult GetUsersOffers(long userId)
         {
+            //var user = GetCurrentUser();
             var userOffers = _context.Users
             .Where(u => u.UserId == userId)
             .Include(u => u.Requests)
@@ -149,6 +150,8 @@ namespace PROJECTALTERAPI
             .Include(o => o.User)
             .Select(o => new
             {
+                FirstName = o.User.FirstName,
+                LastName = o.User.LastName,
                 UserId = o.User.UserId,
                 Username = o.User.Username,
                 OfferId = o.OfferId,
@@ -157,10 +160,13 @@ namespace PROJECTALTERAPI
                 Deadline = o.Deadline,
                 Price = o.Price,
                 Status = o.Status
+
             })
             .ToList();
             var userDtoList = userOffers.Select(o => new UserDto
             {
+                FirstName = o.FirstName,
+                LastName = o.LastName,
                 UserId = o.UserId,
                 Username = o.Username
             }).ToList();
@@ -170,8 +176,10 @@ namespace PROJECTALTERAPI
         [HttpGet("GetUsersOffers2/{userId}")]
         public IActionResult GetUsersOffers2(long userId)
         {
+            //var user = GetCurrentUser();
             var userOffers = _context.Users
-            .Where(u => u.UserId == userId)
+            .Where(u => u.UserId == userId
+            )
             .Include(u => u.Offers)
                 .ThenInclude(o => o.Request)
                 .ThenInclude(r => r.User)
@@ -203,6 +211,8 @@ namespace PROJECTALTERAPI
                 .Where(u => userIds.Contains(u.UserId))
                 .Select(u => new
                 {
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
                     UserId = u.UserId,
                     Username = u.Username
                 })

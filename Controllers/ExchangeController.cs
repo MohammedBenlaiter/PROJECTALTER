@@ -154,6 +154,7 @@ namespace PROJECTALTERAPI.Controllers
             }
             return Ok(users);
         }
+
         private User GetCurrentUser()
         {
             var Identity = HttpContext.User.Identity as ClaimsIdentity;

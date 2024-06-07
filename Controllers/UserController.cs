@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authorization;
 using System.CodeDom.Compiler;
+using System.Linq;
 
 namespace PROJECTALTERAPI.Controllers
 {
@@ -263,6 +264,7 @@ namespace PROJECTALTERAPI.Controllers
                 LastName = user.LastName,
                 Username = user.Username,
                 Password = user.Password,
+                Picture = user.Picture,
                 Skills = user.Skills.Select(s => new SkillDto
                 {
                     SkillId = s.SkillId,
@@ -271,7 +273,429 @@ namespace PROJECTALTERAPI.Controllers
             };
             return Ok(User);
         }
+        [HttpGet("GetUsersOffersAndExchanges")]
+        public IActionResult GetUsersOffersAndExchanges()
+        {
+            var user = GetCurrentUser();
+            var userOffers1 = _db.Users
+            .Where(u => u.UserId == user.UserId)
+            .Include(u => u.Requests)
+            .ThenInclude(r => r.Offers)
+            .Where(u => u.Requests.Any(r => r.Offers.Any(o => o.Status == "Accepted")))
+            .SelectMany(u => u.Requests.SelectMany(r => r.Offers.Where(o => o.Status == "Accepted")))
+            .Include(o => o.User)
+            .Select(o => new
+            {
+                UserId = o.User.UserId,
+                FirstName = o.User.FirstName,
+                LastName = o.User.LastName,
+                Password = o.User.Password,
+                Username = o.User.Username
+            })
+            .ToList();
 
+            var userOffers2 = _db.Users
+            .Where(u => u.UserId == user.UserId)
+            .Include(u => u.Offers)
+            .ThenInclude(o => o.Request)
+            .ThenInclude(r => r.User)
+            .Where(u => u.Offers.Any(o => o.Status == "Accepted"))
+            .SelectMany(u => u.Offers.Where(o => o.Status == "Accepted"))
+            .Include(o => o.User)
+            .Select(o => new
+            {
+                UserId = o.User.UserId,
+                FirstName = o.User.FirstName,
+                LastName = o.User.LastName,
+                Password = o.User.Password,
+                Username = o.User.Username
+            })
+            .ToList();
+
+            var userDtoList1 = userOffers1.Select(o => new UserDto
+            {
+                UserId = o.UserId,
+                FirstName = o.FirstName,
+                LastName = o.LastName,
+                Password = o.Password,
+                Username = o.Username
+            }).ToList();
+
+            var requestIdList = userOffers2.Select(o => o.UserId).ToList();
+            var requests = _db.Requests.Where(r => requestIdList.Contains(r.RequestId)).ToList();
+
+            var userIds = requests.Select(r => r.UserId).ToList();
+            var users = _db.Users
+            .Where(u => userIds.Contains(u.UserId))
+            .Select(u => new UserDto
+            {
+                UserId = u.UserId,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                Password = u.Password,
+                Username = u.Username
+            })
+            .ToList();
+
+            var exchanges = _db.Exchanges
+            .Where(e => (e.ReciverId == user.UserId || e.SenderId == user.UserId) && e.Statues == "accepted")
+            .ToList();
+
+            var exchangeUsers = new List<UserDto>();
+            var exchangeUserIds = new HashSet<long>(); // To keep track of unique user IDs
+
+            foreach (var exchange in exchanges)
+            {
+                var sender = _db.Users.FirstOrDefault(u => u.UserId == exchange.SenderId);
+                var recipient = _db.Users.FirstOrDefault(u => u.UserId == exchange.ReciverId);
+
+                if (sender != null && sender.UserId != user.UserId && !exchangeUserIds.Contains(sender.UserId))
+                {
+                    exchangeUsers.Add(new UserDto
+                    {
+                        UserId = sender.UserId,
+                        FirstName = sender.FirstName,
+                        LastName = sender.LastName,
+                        Password = sender.Password,
+                        Username = sender.Username
+                    });
+                    exchangeUserIds.Add(sender.UserId);
+                }
+                if (recipient != null && recipient.UserId != user.UserId && !exchangeUserIds.Contains(recipient.UserId))
+                {
+                    exchangeUsers.Add(new UserDto
+                    {
+                        UserId = recipient.UserId,
+                        FirstName = recipient.FirstName,
+                        LastName = recipient.LastName,
+                        Password = recipient.Password,
+                        Username = recipient.Username
+                    });
+                    exchangeUserIds.Add(recipient.UserId);
+                }
+            }
+
+            var combinedResult = userDtoList1.Concat(users).Concat(exchangeUsers).Distinct().ToList();
+
+            return Ok(combinedResult);
+        }
+        /*         [HttpGet("GetUsersOffersAndExchanges/{userId}")]
+                public IActionResult GetUsersOffersAndExchanges(long userId)
+                {
+                    var userOffers1 = _db.Users
+                        .Where(u => u.UserId == userId)
+                        .Include(u => u.Requests)
+                        .ThenInclude(r => r.Offers)
+                        .Where(u => u.Requests.Any(r => r.Offers.Any(o => o.Status == "Accepted")))
+                        .SelectMany(u => u.Requests.SelectMany(r => r.Offers.Where(o => o.Status == "Accepted")))
+                        .Include(o => o.User)
+                        .Select(o => new
+                        {
+                            UserId = o.User.UserId,
+                            FirstName = o.User.FirstName,
+                            LastName = o.User.LastName,
+                            Password = o.User.Password,
+                            Username = o.User.Username
+                        })
+                        .ToList();
+
+                    var userOffers2 = _db.Users
+                        .Where(u => u.UserId == userId)
+                        .Include(u => u.Offers)
+                        .ThenInclude(o => o.Request)
+                        .ThenInclude(r => r.User)
+                        .Where(u => u.Offers.Any(o => o.Status == "Accepted"))
+                        .SelectMany(u => u.Offers.Where(o => o.Status == "Accepted"))
+                        .Include(o => o.User)
+                        .Select(o => new
+                        {
+                            UserId = o.User.UserId,
+                            FirstName = o.User.FirstName,
+                            LastName = o.User.LastName,
+                            Password = o.User.Password,
+                            Username = o.User.Username
+                        })
+                        .ToList();
+
+                    var userDtoList1 = userOffers1.Select(o => new UserDto
+                    {
+                        UserId = o.UserId,
+                        FirstName = o.FirstName,
+                        LastName = o.LastName,
+                        Password = o.Password,
+                        Username = o.Username
+                    }).ToList();
+
+                    var requestIdList = userOffers2.Select(o => o.UserId).ToList();
+                    var requests = _db.Requests.Where(r => requestIdList.Contains(r.RequestId)).ToList();
+
+                    var userIds = requests.Select(r => r.UserId).ToList();
+                    var users = _db.Users
+                        .Where(u => userIds.Contains(u.UserId))
+                        .Select(u => new UserDto
+                        {
+                            UserId = u.UserId,
+                            FirstName = u.FirstName,
+                            LastName = u.LastName,
+                            Password = u.Password,
+                            Username = u.Username
+                        })
+                        .ToList();
+
+                    var exchanges = _db.Exchanges
+                        .Where(e => (e.ReciverId == userId || e.SenderId == userId) && e.Statues == "accepted")
+                        .ToList();
+
+                    var exchangeUsers = new List<UserDto>();
+                    var exchangeUserIds = new HashSet<long>(); // To keep track of unique user IDs
+
+                    foreach (var exchange in exchanges)
+                    {
+                        var sender = _db.Users.FirstOrDefault(u => u.UserId == exchange.SenderId);
+                        var recipient = _db.Users.FirstOrDefault(u => u.UserId == exchange.ReciverId);
+
+                        if (sender != null && sender.UserId != userId && !exchangeUserIds.Contains(sender.UserId))
+                        {
+                            exchangeUsers.Add(new UserDto
+                            {
+                                UserId = sender.UserId,
+                                FirstName = sender.FirstName,
+                                LastName = sender.LastName,
+                                Password = sender.Password,
+                                Username = sender.Username
+                            });
+                            exchangeUserIds.Add(sender.UserId);
+                        }
+                        if (recipient != null && recipient.UserId != userId && !exchangeUserIds.Contains(recipient.UserId))
+                        {
+                            exchangeUsers.Add(new UserDto
+                            {
+                                UserId = recipient.UserId,
+                                FirstName = recipient.FirstName,
+                                LastName = recipient.LastName,
+                                Password = recipient.Password,
+                                Username = recipient.Username
+                            });
+                            exchangeUserIds.Add(recipient.UserId);
+                        }
+                    }
+
+                    var combinedResult = userDtoList1.Concat(users).Concat(exchangeUsers).ToList();
+
+                    return Ok(combinedResult);
+                } */
+        /*         [HttpGet("GetUsersOffersAndExchanges/{userId}")]
+                public IActionResult GetUsersOffersAndExchanges(long userId)
+                {
+                    var userOffers1 = _db.Users
+                        .Where(u => u.UserId == userId)
+                        .Include(u => u.Requests)
+                            .ThenInclude(r => r.Offers)
+                        .Where(u => u.Requests.Any(r => r.Offers.Any(o => o.Status == "Accepted")))
+                        .SelectMany(u => u.Requests.SelectMany(r => r.Offers.Where(o => o.Status == "Accepted")))
+                        .Include(o => o.User)
+                        .Select(o => new
+                        {
+                            UserId = o.User.UserId,
+                            Username = o.User.Username,
+                            OfferId = o.OfferId,
+                            RequestId = o.RequestId,
+                            OfferInfo = o.OfferInfo,
+                            Deadline = o.Deadline,
+                            Price = o.Price,
+                            Status = o.Status
+                        })
+                        .ToList();
+
+                    var userOffers2 = _db.Users
+                        .Where(u => u.UserId == userId)
+                        .Include(u => u.Offers)
+                            .ThenInclude(o => o.Request)
+                            .ThenInclude(r => r.User)
+                        .Where(u => u.Offers.Any(o => o.Status == "Accepted"))
+                        .SelectMany(u => u.Offers.Where(o => o.Status == "Accepted"))
+                        .Include(o => o.User)
+                        .Select(o => new
+                        {
+                            UserId = o.User.UserId,
+                            Username = o.User.Username,
+                            OfferId = o.OfferId,
+                            RequestId = o.Request.RequestId,
+                            OfferInfo = o.OfferInfo,
+                            Deadline = o.Deadline,
+                            Price = o.Price,[HttpGet("GetUsersOffersAndExchanges/{userId}")]
+        public IActionResult GetUsersOffersAndExchanges(long userId)
+        {
+            var userOffers1 = _db.Users
+                .Where(u => u.UserId == userId)
+                .Include(u => u.Requests)
+                .ThenInclude(r => r.Offers)
+                .Where(u => u.Requests.Any(r => r.Offers.Any(o => o.Status == "Accepted")))
+                .SelectMany(u => u.Requests.SelectMany(r => r.Offers.Where(o => o.Status == "Accepted")))
+                .Include(o => o.User)
+                .Select(o => new
+                {
+                    UserId = o.User.UserId,
+                    FirstName = o.User.FirstName,
+                    LastName = o.User.LastName,
+                    Password = o.User.Password,
+                    Username = o.User.Username
+                })
+                .ToList();
+
+            var userOffers2 = _db.Users
+                .Where(u => u.UserId == userId)
+                .Include(u => u.Offers)
+                .ThenInclude(o => o.Request)
+                .ThenInclude(r => r.User)
+                .Where(u => u.Offers.Any(o => o.Status == "Accepted"))
+                .SelectMany(u => u.Offers.Where(o => o.Status == "Accepted"))
+                .Include(o => o.User)
+                .Select(o => new
+                {
+                    UserId = o.User.UserId,
+                    FirstName = o.User.FirstName,
+                    LastName = o.User.LastName,
+                    Password = o.User.Password,
+                    Username = o.User.Username
+                })
+                .ToList();
+
+            var userDtoList1 = userOffers1.Select(o => new UserDto
+            {
+                UserId = o.UserId,
+                FirstName = o.FirstName,
+                LastName = o.LastName,
+                Password = o.Password,
+                Username = o.Username
+            }).ToList();
+
+            var requestIdList = userOffers2.Select(o => o.UserId).ToList();
+            var requests = _db.Requests.Where(r => requestIdList.Contains(r.RequestId)).ToList();
+
+            var userIds = requests.Select(r => r.UserId).ToList();
+            var users = _db.Users
+                .Where(u => userIds.Contains(u.UserId))
+                .Select(u => new UserDto
+                {
+                    UserId = u.UserId,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Password = u.Password,
+                    Username = u.Username
+                })
+                .ToList();
+
+            var exchanges = _db.Exchanges
+                .Where(e => (e.ReciverId == userId || e.SenderId == userId) && e.Statues == "accepted")
+                .ToList();
+
+            var exchangeUsers = new List<UserDto>();
+            var exchangeUserIds = new HashSet<long>(); // To keep track of unique user IDs
+
+            foreach (var exchange in exchanges)
+            {
+                var sender = _db.Users.FirstOrDefault(u => u.UserId == exchange.SenderId);
+                var recipient = _db.Users.FirstOrDefault(u => u.UserId == exchange.ReciverId);
+
+                if (sender != null && sender.UserId != userId && !exchangeUserIds.Contains(sender.UserId))
+                {
+                    exchangeUsers.Add(new UserDto
+                    {
+                        UserId = sender.UserId,
+                        FirstName = sender.FirstName,
+                        LastName = sender.LastName,
+                        Password = sender.Password,
+                        Username = sender.Username
+                    });
+                    exchangeUserIds.Add(sender.UserId);
+                }
+                if (recipient != null && recipient.UserId != userId && !exchangeUserIds.Contains(recipient.UserId))
+                {
+                    exchangeUsers.Add(new UserDto
+                    {
+                        UserId = recipient.UserId,
+                        FirstName = recipient.FirstName,
+                        LastName = recipient.LastName,
+                        Password = recipient.Password,
+                        Username = recipient.Username
+                    });
+                    exchangeUserIds.Add(recipient.UserId);
+                }
+            }
+
+            var combinedResult = userDtoList1.Concat(users).Concat(exchangeUsers).ToList();
+
+            return Ok(combinedResult);
+        }
+                            Status = o.Status
+                        })
+                        .ToList();
+
+                    var userDtoList1 = userOffers1.Select(o => new UserDto
+                    {
+                        UserId = o.UserId,
+                        Username = o.Username
+                    }).ToList();
+
+                    var requestIdList = userOffers2.Select(o => o.RequestId).ToList();
+                    var requests = _db.Requests.Where(r => requestIdList.Contains(r.RequestId)).ToList();
+
+                    var userIds = requests.Select(r => r.UserId).ToList();
+                    var users = _db.Users
+                        .Where(u => userIds.Contains(u.UserId))
+                        .Select(u => new
+                        {
+                            UserId = u.UserId,
+                            Username = u.Username
+                        })
+                        .ToList();
+
+                    var exchanges = _db.Exchanges
+                        .Where(e => (e.ReciverId == userId || e.SenderId == userId) && e.Statues == "accepted")
+                        .ToList();
+
+                    var exchangeUsers = new List<UserDto>();
+                    var exchangeUserIds = new HashSet<long>(); // To keep track of unique user IDs
+
+                    foreach (var exchange in exchanges)
+                    {
+                        var sender = _db.Users.FirstOrDefault(u => u.UserId == exchange.SenderId);
+                        var recipient = _db.Users.FirstOrDefault(u => u.UserId == exchange.ReciverId);
+
+                        if (sender != null && sender.UserId != userId && !exchangeUserIds.Contains(sender.UserId))
+                        {
+                            exchangeUsers.Add(new UserDto
+                            {
+                                UserId = sender.UserId,
+                                FirstName = sender.FirstName,
+                                LastName = sender.LastName,
+                                Username = sender.Username
+                            });
+                            exchangeUserIds.Add(sender.UserId);
+                        }
+                        if (recipient != null && recipient.UserId != userId && !exchangeUserIds.Contains(recipient.UserId))
+                        {
+                            exchangeUsers.Add(new UserDto
+                            {
+                                UserId = recipient.UserId,
+                                FirstName = recipient.FirstName,
+                                LastName = recipient.LastName,
+                                Username = recipient.Username
+                            });
+                            exchangeUserIds.Add(recipient.UserId);
+                        }
+                    }
+
+                    var combinedResult = new
+                    {
+                        UserOffers = userDtoList1,
+                        //Users = users,
+                        ExchangeUsers = exchangeUsers
+                    };
+
+                    return Ok(combinedResult);
+                } */
         [HttpPost("checkEmail")]
         public IActionResult CheckEmailAvailability(EmailDto dto)
         {

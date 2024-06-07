@@ -42,13 +42,56 @@ namespace PROJECTALTERAPI
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("GetAllMessages/{id_receiver}")]
-        public async Task<IActionResult> GetAllMessages(long id_receiver)
+        /*         [HttpGet("GetAllMessages/{id_receiver}")]
+                public async Task<IActionResult> GetAllMessages(long id_receiver)
+                {
+                    var user = GetCurrentUser();
+                    try
+                    {
+                        var messages = await _db.Messages.Where(m => (m.SenderId == user.UserId && m.ReceiverId == id_receiver) || (m.SenderId == id_receiver && m.ReceiverId == user.UserId)).ToListAsync();
+
+                        return Ok(messages);
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                } */
+        /*         [HttpGet("GetAllMessages/{id_receiver}")]
+                public async Task<IActionResult> GetAllMessages(long id_receiver)
+                {
+                    var user = GetCurrentUser();
+                    try
+                    {
+                        var messages = await _db.Messages
+                            .Include(m => m.Sender)
+                            .Include(m => m.Receiver)
+                            .Where(m => (m.SenderId == user.UserId && m.ReceiverId == id_receiver) || (m.SenderId == id_receiver && m.ReceiverId == user.UserId))
+                            .OrderBy(m => m.MessageId) // Sort by time when message was created
+                            .Select(m => new
+                            {
+                                SenderId = m.SenderId,
+                                ReceiverId = m.ReceiverId,
+                                SenderName = m.Sender.Username,
+                                ReceiverName = m.Receiver.Username,
+                                Content = m.Content
+                            })
+                            .ToListAsync();
+
+                        return Ok(messages);
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                } */
+        [HttpGet("GetAllMessages/{id_receiver}/{id_sender}")]
+        public async Task<IActionResult> GetAllMessages(long id_receiver, long id_sender)
         {
             var user = GetCurrentUser();
             try
             {
-                var messages = await _db.Messages.Where(m => (m.SenderId == user.UserId && m.ReceiverId == id_receiver) || (m.SenderId == id_receiver && m.ReceiverId == user.UserId)).ToListAsync();
+                var messages = await _db.Messages.Where(m => (m.SenderId == id_sender && m.ReceiverId == id_receiver) || (m.SenderId == id_receiver && m.ReceiverId == id_sender)).ToListAsync();
 
                 return Ok(messages);
             }
@@ -57,7 +100,6 @@ namespace PROJECTALTERAPI
                 return BadRequest(ex.Message);
             }
         }
-
         private User GetCurrentUser()
         {
             var Identity = HttpContext.User.Identity as ClaimsIdentity;

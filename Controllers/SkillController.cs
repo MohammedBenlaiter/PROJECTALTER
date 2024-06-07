@@ -257,9 +257,9 @@ namespace PROJECTALTERAPI.Controllers
             return Ok(skillDto2);
         }
         [HttpGet("getSkills1")]
-        public async Task<ActionResult<Skill>> GetSkills(SkillTypeDto skillType)
+        public async Task<ActionResult<Skill>> GetSkills([FromQuery] string skillType)
         {
-            var skills = await _context.Skills.Where(s => s.SkillType == skillType.SkillType).ToListAsync();
+            var skills = await _context.Skills.Where(s => s.SkillType == skillType).ToListAsync();
             if (skills == null)
             {
                 return NotFound();
