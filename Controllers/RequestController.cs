@@ -29,6 +29,7 @@ namespace PROJECTALTERAPI
                 RequestTitle = requestDto.RequestTitle,
                 RequestDescription = requestDto.RequestDescription,
                 Deadline = requestDto.Deadline,
+                RequestStatus = "NotTaken"
             };
             _context.Requests.Add(request);
             await _context.SaveChangesAsync();
@@ -37,7 +38,7 @@ namespace PROJECTALTERAPI
         [HttpGet("getRequests")]
         public async Task<IActionResult> GetRequests()
         {
-            var requests = await _context.Requests.ToListAsync();
+            var requests = await _context.Requests.Where(r => r.RequestStatus == "NotTaken").ToListAsync();
             if (requests == null)
             {
                 return NotFound();
@@ -48,19 +49,18 @@ namespace PROJECTALTERAPI
         public async Task<IActionResult> GetRequest()
         {
             var userId = GetCurrentUser();
-            var request = await _context.Requests.FindAsync(userId.UserId);
-            var rq = _context.Requests.Where(s => s.UserId == userId.UserId);
-            if (rq == null)
+            var request = await _context.Requests.FirstOrDefaultAsync(r => r.UserId == userId.UserId && r.RequestStatus == "NotTaken");
+            if (request == null)
             {
                 return NotFound();
             }
-            return Ok(rq);
+            return Ok(request);
         }
         [HttpGet("GetUserRequest/{requestId}")]
         public async Task<IActionResult> GetUserRequest(long requestId)
         {
             //var userId = GetCurrentUser();
-            var request = await _context.Requests.Where(u => u.RequestId == requestId).FirstOrDefaultAsync();
+            var request = await _context.Requests.Where(u => u.RequestId == requestId && u.RequestStatus == "NotTaken").FirstOrDefaultAsync();
             if (request == null)
             {
                 return NotFound();
@@ -83,7 +83,7 @@ namespace PROJECTALTERAPI
         [HttpGet("getUserRequests/{id}")]
         public async Task<IActionResult> GetUserRequests(long id)
         {
-            var requests = await _context.Requests.Where(r => r.UserId == id).ToListAsync();
+            var requests = await _context.Requests.Where(r => r.UserId == id && r.RequestStatus == "NotTaken").ToListAsync();
             if (requests == null)
             {
                 return NotFound();
@@ -101,7 +101,7 @@ namespace PROJECTALTERAPI
         [HttpGet("searchRequest")]
         public async Task<IActionResult> SearchRequest([FromQuery] string search)
         {
-            var requests = await _context.Requests.Where(r => r.RequestTitle.Contains(search)).ToListAsync();
+            var requests = await _context.Requests.Where(r => r.RequestTitle.Contains(search) && r.RequestStatus == "NotTaken").ToListAsync();
             if (requests == null)
             {
                 return NotFound();

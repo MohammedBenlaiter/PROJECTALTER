@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PROJECTALTERAPI.Dtos;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace PROJECTALTERAPI
 {
@@ -95,17 +96,38 @@ namespace PROJECTALTERAPI
                 return Ok(offers);
             }
         }
-        [HttpPost("AcceptOffer/{id}")]
-        public async Task<IActionResult> AcceptOffer(long id)
+        /*         [HttpPost("AcceptOffer/{id}")]
+                public async Task<IActionResult> AcceptOffer(long id)
+                {
+                    var offer = await _context.Offers.FindAsync(id);
+                    if (offer == null)
+                    {
+                        return NotFound();
+                    }
+                    offer.Status = "Accepted";
+                    _context.SaveChanges();
+                    return Ok(offer);
+                } */
+
+
+        [HttpPatch("AcceptOffer/{id}")]
+        public ActionResult AcceptOffer(long id)
         {
-            var offer = await _context.Offers.FindAsync(id);
+            // Add your code logic here
+            var offer = _context.Offers.Find(id);
             if (offer == null)
             {
                 return NotFound();
             }
             offer.Status = "Accepted";
             _context.SaveChanges();
-            return Ok(offer);
+            var request = _context.Requests.FirstOrDefault(r => r.RequestId == offer.RequestId);
+            if (request != null)
+            {
+                request.RequestStatus = "Taken";
+                _context.SaveChanges();
+            }
+            return Ok(); // Return a response to ensure all code paths return a value
         }
         [HttpPost("RejectOffer/{id}")]
         public async Task<IActionResult> RejectOffer(long id)
