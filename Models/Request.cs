@@ -17,6 +17,8 @@ public partial class Request
 
     public string? RequestType { get; set; }
 
+    public string? RequestStatus { get; set; }
+
     public virtual ICollection<Offer> Offers { get; set; } = new List<Offer>();
 
     public virtual User User { get; set; } = null!;

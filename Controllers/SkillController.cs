@@ -168,9 +168,9 @@ namespace PROJECTALTERAPI.Controllers
             return Ok(dto);
         }
         [HttpGet("SearchSkillByName")]
-        public IActionResult SearchSkillByName(SearchDto skillName)
+        public IActionResult SearchSkillByName([FromQuery] string skillName)
         {
-            var skills = _context.Skills.Where(s => s.SkillName.Contains(skillName.Query));
+            var skills = _context.Skills.Where(s => s.SkillName.Contains(skillName));
             if (!skills.Any())
             {
                 return NotFound();

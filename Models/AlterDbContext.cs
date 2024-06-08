@@ -267,6 +267,9 @@ public partial class AlterDbContext : DbContext
                 .HasColumnName("request_id");
             entity.Property(e => e.Deadline).HasColumnName("deadline");
             entity.Property(e => e.RequestDescription).HasColumnName("request_description");
+            entity.Property(e => e.RequestStatus)
+                .HasColumnType("character varying")
+                .HasColumnName("request_status");
             entity.Property(e => e.RequestTitle)
                 .HasColumnType("character varying")
                 .HasColumnName("request_title");

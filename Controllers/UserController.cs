@@ -63,14 +63,14 @@ namespace PROJECTALTERAPI.Controllers
             {
                 return NotFound("No users found");
             }
-            var userDtos = users.Select(u => new UserDto
+            /* var userDtos = users.Select(u => new UserDto
             {
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 Username = u.Username,
                 Password = u.Password
-            }).ToList();
-            return Ok(userDtos);
+            }).ToList(); */
+            return Ok(users);
         }
         [HttpGet("getUser")]
         public IActionResult GetUser()

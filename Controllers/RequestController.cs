@@ -98,6 +98,16 @@ namespace PROJECTALTERAPI
             }).ToList();
             return Ok(requestDtos);
         }
+        [HttpGet("searchRequest")]
+        public async Task<IActionResult> SearchRequest([FromQuery] string search)
+        {
+            var requests = await _context.Requests.Where(r => r.RequestTitle.Contains(search)).ToListAsync();
+            if (requests == null)
+            {
+                return NotFound();
+            }
+            return Ok(requests);
+        }
         private User GetCurrentUser()
         {
             var Identity = HttpContext.User.Identity as ClaimsIdentity;
